@@ -53,39 +53,3 @@ public class ProjectPL2 {
     }
      
      
-     
-    private static void findAndReserveRoom() {
-        final Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter Check-In Date mm/dd/yyyy example 02/01/2020");
-        Date checkIn = getInputDate(scanner);
-
-        System.out.println("Enter Check-Out Date mm/dd/yyyy example 02/21/2020");
-        Date checkOut = getInputDate(scanner);
-
-        if (checkIn != null && checkOut != null) {
-            Collection<IRoom> availableRooms =findARoom(checkIn, checkOut);
-
-            if (availableRooms.isEmpty()) {
-                Collection<IRoom> alternativeRooms = findAlternativeRooms(checkIn, checkOut);
-
-                if (alternativeRooms.isEmpty()) {
-                    System.out.println("No rooms found.");
-                } else {
-                    final Date alternativeCheckIn = hotelResource.addDefaultPlusDays(checkIn);
-                    final Date alternativeCheckOut = hotelResource.addDefaultPlusDays(checkOut);
-                    System.out.println("We've only found rooms on alternative dates:" +
-                            "\nCheck-In Date:" + alternativeCheckIn +
-                            "\nCheck-Out Date:" + alternativeCheckOut);
-
-                    printRooms(alternativeRooms);
-                    reserveRoom(scanner, alternativeCheckIn, alternativeCheckOut, alternativeRooms);
-                }
-            } else {
-                printRooms(availableRooms);
-                reserveRoom(scanner, checkIn, checkOut, availableRooms);
-            }
-        }
-    }
-}
-

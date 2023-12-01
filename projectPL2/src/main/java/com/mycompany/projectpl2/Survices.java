@@ -8,6 +8,16 @@ package com.mycompany.projectpl2;
  *
  * @author user
  */
-public class Survices {
-    
+public class Service {
+  int id;
+  String name;
+  String description;
+  double price;
+  Service(int id, String name, String description, double price);
+  void addService(Service service);
+  void updateService(Service service);
+  void deleteService(int id);
+  Service getServiceById(int id);
+  List<Service> getAllServices();
+  void generateReport();
 }
