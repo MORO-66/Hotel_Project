@@ -9,5 +9,14 @@ package com.mycompany.projectpl2;
  * @author user
  */
 public class Rooms {
-    
+  int number;
+  String type;
+  double price;
+  boolean status;
+  Room(int number, String type, double price, boolean status);
+  void addRoom(Room room);
+  void updateRoom(Room room);
+  void deleteRoom(int number);
+  Room getRoomByNumber(int number);
+  List<Room> getRoomsByFilter(String filter);
 }
