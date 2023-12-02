@@ -8,28 +8,98 @@ package com.mycompany.projectpl2;
  *
  * @author user
  */
-  class Room {
-  int number;
-  String type; // single, double, suite, etc.
-  double price;
-  boolean isBusy;
-  List<Service> services;
 
-  // constructor
-  Room(int number, String type, double price, boolean isBusy) {
-    this.number = number;
-    this.type = type;
-    this.price = price;
-    this.isBusy = isBusy;
-    this.services = new ArrayList<>();
+  public class Rooms{
+  
+    private List<Room> rooms;
+  
+    public Rooms(){
+  
+      this.rooms = new ArrayList<>();
   
   }
-  // getters and setters
-  // ...
+  
+public class Room {
+  private int number;
+  private String type;
+  private double price;
+  private boolean status;
 
-  // methods
-  void assignToCustomer(Customer c); // assign the room to a customer and mark it as busy
-  void releaseFromCustomer(); // release the room from the customer and mark it as free
-  void addService(Service s); // add a service to the room and update the price
-  void removeService(Service s); // remove a service from the room and update the price
+   public Room(int number, String type, double price, boolean status){
+            this.number = number;
+            this.type = type;
+            this.price = price;
+            this.status = status;
+
+  };
+  
+  public void int setNumber(int number){
+      this.number=number;
+  };
+
+    public int getNumber(){
+      return number;
+  };
+
+  public String setType(String type){
+      this.type=type;
+  };
+
+    public String getType(){
+      return type;
+  };
+  
+  public void int setPrice(double price){
+      this.price=price;
+  };
+  
+  public double getPrice(){
+      return price;
+  };
+
+ public void boolean setStatus(boolean status){
+      this.status=status;
+  }  
+
+  public boolean getStatus(){
+      return status;
+  }
+
+  public void addRoom(Room room){
+      
+      rooms.add(room);
+      
+  };
+ public void updateRoom(Room room){
+for (Room r : rooms){
+    if (r.getNumber() == room.getNumber()){
+        r.setType(room.getType());
+        r.setPrice(room.getPrice());
+        r.setStatus(room.getStatus());
+        break;
+        }
+    }
+ };
+ public void deleteRoom(int number){
+        rooms.removeIf(room -> room.getNumber() == number);
+  };
+ public Room getRoomByNumber(int number){
+       for (Room room : rooms) {
+            if (room.getNumber() == number) {
+                return room;
+            }
+        }
+        return null;
+  };
+public List<Room> getRoomsByFilter(String filter){
+      List<Room> filteredRooms = new ArrayList<>();
+        for (Room room : rooms) {
+            if (room.getType().equalsIgnoreCase(filter) || String.valueOf(room.getStatus()).equalsIgnoreCase(filter)) {
+                filteredRooms.add(room);
+            }
+        }
+        return filteredRooms;
+    }
 }
+}
+
