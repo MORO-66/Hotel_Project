@@ -13,15 +13,7 @@ public class Service {
   String name;
   String description;
   double price;
-
-  Service(int id, String name, String description, double price){
-  int S_Id=id;
-  String S_Name=name;
-  String S_Description=description;
-  double S_Price=price;
-
-
-  }
+  Service(int id, String name, String description, double price);
   void addService(Service service);
   void updateService(Service service);
   void deleteService(int id);
