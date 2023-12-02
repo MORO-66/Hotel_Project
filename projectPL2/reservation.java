@@ -5,20 +5,24 @@ import java.util.*; // For collections and utilities
 
 // Creating a class for reservation
 class Reservation {
-  int customerId; 
-  int roomId; 
-  LocalDate checkIn; // Check-in date
-  LocalDate checkOut; // Check-out date
-  double total; // Total amount
+  int id;
+  Customer customer;
+  Room room;
+  Date checkInDate;
+  Date checkOutDate;
 
-  // Constructor of reservation
-  public Reservation(int customerId, int roomId, LocalDate checkIn, LocalDate checkOut, double total) {
-    this.customerId = customerId;
-    this.roomId = roomId;
-    this.checkIn = checkIn;
-    this.checkOut = checkOut;
-    this.total = total;
+  // constructor
+  Reservation(int id, Customer customer, Room room, Date checkInDate, Date checkOutDate) {
+    this.id = id;
+    this.customer = customer;
+    this.room = room;
+    this.checkInDate = checkInDate;
+    this.checkOutDate = checkOutDate;
   }
+
+  // getters and setters
+  // ...
+
 
   // Method to write a reservation to a file
   public void writeReservation() {
@@ -99,4 +103,55 @@ class Reservation {
     // Returning the array list of reservations
     return reservations;
   }
+
+
+
+  // Method to enter user/guest data if not available
+  public void enterUserData() {
+    // Creating a scanner object to take user input
+    Scanner sc = new Scanner(System.in);
+
+    // Asking the user to enter the customer id
+    System.out.print("Enter the customer id: ");
+    int customerId = sc.nextInt();
+
+    // Checking if the customer id exists in the users list
+    boolean exists = false;
+    for (User user : users) {
+      if (user.id == customerId && user.role.equals("customer")) {
+        exists = true;
+        break;
+      }
+    }
+
+    // If the customer id does not exist, asking the user to enter the customer details
+    if (!exists) {
+      // Asking the user to enter the customer name
+      System.out.print("Enter the customer name: ");
+      sc.nextLine(); // Consuming the newline character
+      String customerName = sc.nextLine();
+
+      // Asking the user to enter the customer phone
+      System.out.print("Enter the customer phone: ");
+      String customerPhone = sc.nextLine();
+
+      // Asking the user to enter the customer email
+      System.out.print("Enter the customer email: ");
+      String customerEmail = sc.nextLine();
+
+      // Creating a user object for the customer
+      User customer = new User(customerId, customerName, "customer", customerPhone, customerEmail);
+
+      // Adding the customer to the users list
+      users.add(customer);
+
+      // Adding the customer to the database
+      customer.addUser();
+    }
+
+    // Closing the scanner object
+    sc.close();
+  }
+
+  
 }

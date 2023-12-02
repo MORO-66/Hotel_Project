@@ -9,30 +9,25 @@ package com.mycompany.projectpl2;
  * @author user
  */
 public class Customer extends User {
-Customer(){  
-int id;
-String name;
-String password;
-String role;
-String address;
-String phone;
-String email;
-}
-  Customer(int id, String name, String password, String role, String address, String phone, String email)
-  {
-   int customer_Id=id;
-   String Customer_Name=name;
-   String Customer_Password=password;
-   String Customer_Role=role;
-   String Address=address;
-   String Phone=phone;
-   String Email=email;
-  
+  String address;
+  String phone;
+  List<Reservation> reservations;
+
+  // constructor
+  Customer(int id, String name, String email, String password, String address, String phone) {
+    super(id, name, email, password, "customer");
+    this.address = address;
+    this.phone = phone;
+    this.reservations = new ArrayList<>();
   
   }
-  
-  List<Room> getRooms();
-  List<Service> getServices();
-  double getTotalAmount();
+  // getters and setters
+  // ...
+
+  // methods
+  void makeReservation(Reservation r); // make a new reservation and add it to the list
+  void cancelReservation(int id); // cancel a reservation by id and remove it from the list
+  void viewReservations(); // view all the reservations made by the customer
+  void viewInvoice(); // view the detailed bill for the customer
 
 }

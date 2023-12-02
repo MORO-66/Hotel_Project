@@ -12,15 +12,26 @@ public class Employee extends User {
   double salary;
   String department;
 
-
-  Employee(int id, String name, String password, String role, double salary, String department){
-    int Id=id;
-    String Name=name;
-    String Password=password;
-    String Role=role;
-    double Salary=salary;
-    String Department=department;
+  // constructor
+  Employee(int id, String name, String email, String password, double salary, String department) {
+    super(id, name, email, password, "employee");
+    this.salary = salary;
+    this.department = department;
   }
+
+  // getters and setters
+  // ...
+
+  // methods
+  void addEmployee(Employee e); // add a new employee to the system
+  void updateEmployee(int id, Employee e); // update an existing employee by id
+  void deleteEmployee(int id); // delete an employee by id
+  void addCustomer(Customer c); // add a new customer to the system
+  void updateCustomer(int id, Customer c); // update an existing customer by id
+  void deleteCustomer(int id); // delete a customer by id
+  void addRoom(Room r); // add a new room to the system
+  void updateRoom(int number, Room r); // update an existing room by number
+  void deleteRoom(int number); // delete a room by number
 
 
 
@@ -159,7 +170,4 @@ private static void createAccount() {
       createAccount();
   }
 }
-  void checkOutRoom(Room room, Customer customer);
-  void addService(Service service, Customer customer);
-  void generateInvoice(Customer customer);
 }
