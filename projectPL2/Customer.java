@@ -8,12 +8,34 @@ package com.mycompany.projectpl2;
  *
  * @author user
  */
-public class Customer extends User {
-  String address;
-  String phone;
-  String email;
-  Customer(int id, String name, String password, String role, String address, String phone, String email);
-  List<Room> getRooms();
-  List<Service> getServices();
-  double getTotalAmount();
+
+public class Customer {
+    private final String customerId;
+    private final String name;
+    private final String contactDetails;
+    private final String address;
+
+    public Customer(String name, String contactDetails, String address) {
+        this.customerId = UUID.randomUUID().toString();
+        this.name = name;
+        this.contactDetails = contactDetails;
+        this.address = address;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getContactDetails() {
+        return contactDetails;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }
+
