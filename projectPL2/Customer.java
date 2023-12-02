@@ -9,6 +9,7 @@ package com.mycompany.projectpl2;
  * @author user
  */
 
+
 public class Customer {
     private final String customerId;
     private final String name;
@@ -38,4 +39,3 @@ public class Customer {
         return address;
     }
 }
-
