@@ -8,15 +8,28 @@ package com.mycompany.projectpl2;
  *
  * @author user
  */
-public class Rooms {
+  class Room {
   int number;
-  String type;
+  String type; // single, double, suite, etc.
   double price;
-  boolean status;
-  Room(int number, String type, double price, boolean status);
-  void addRoom(Room room);
-  void updateRoom(Room room);
-  void deleteRoom(int number);
-  Room getRoomByNumber(int number);
-  List<Room> getRoomsByFilter(String filter);
+  boolean isBusy;
+  List<Service> services;
+
+  // constructor
+  Room(int number, String type, double price, boolean isBusy) {
+    this.number = number;
+    this.type = type;
+    this.price = price;
+    this.isBusy = isBusy;
+    this.services = new ArrayList<>();
+  
+  }
+  // getters and setters
+  // ...
+
+  // methods
+  void assignToCustomer(Customer c); // assign the room to a customer and mark it as busy
+  void releaseFromCustomer(); // release the room from the customer and mark it as free
+  void addService(Service s); // add a service to the room and update the price
+  void removeService(Service s); // remove a service from the room and update the price
 }
