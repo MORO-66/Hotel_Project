@@ -1,41 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.projectpl2;
-
-/**
- *
- * @author user
- */
-
-
-public class Customer {
-    private final String customerId;
-    private final String name;
-    private final String contactDetails;
-    private final String address;
-
-    public Customer(String name, String contactDetails, String address) {
-        this.customerId = UUID.randomUUID().toString();
-        this.name = name;
+public class Customer extends User{
+   
+    private String contactDetails;
+    private  String address;
+   
+    public Customer(int id, String name, String email, String password, String contactDetails,String address) {
+        super(id, name, email, password, "employee");
         this.contactDetails = contactDetails;
-        this.address = address;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public String getName() {
-        return name;
+        this.address=address;
     }
 
     public String getContactDetails() {
-        return contactDetails;
+        return this.contactDetails;
     }
 
     public String getAddress() {
-        return address;
+        return this.address;
+    }
+    
+     public String setContactDetails(String contactDetails) {
+        return this.contactDetails=contactDetails;
+    }
+      public String setaddress(String address) {
+        return this.address=address;
     }
 }
