@@ -37,7 +37,7 @@ class Reservation {
       BufferedWriter bw = new BufferedWriter(fw);
 
       // Writing the reservation details to the file
-      bw.write(this.customerId + "\n" + this.roomId + "\n" + this.checkIn + "\n" + this.checkOut + "\n" + this.total + "\n");
+      bw.write(this.customerId + "\n" + this.roomId + "\n" + this.checkIn + "\n" + this.checkOut + "\n" + this.total + "\n\n");
 
       // Closing the buffered writer and file writer
       bw.close();
