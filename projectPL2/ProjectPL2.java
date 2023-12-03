@@ -29,27 +29,6 @@ public class ProjectPL2 {
                 "--------------------------------------------\n" +
                 "Please select a number for the menu option:\n");
     }
-     private static void createAccount() {
-        final Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter Email format: name@domain.com");
-        final String email = scanner.nextLine();
-
-        System.out.println("First Name:");
-        final String firstName = scanner.nextLine();
-
-        System.out.println("Last Name:");
-        final String lastName = scanner.nextLine();
-
-        try {
-            createACustomer(email, firstName, lastName);
-            System.out.println("Account created successfully!");
-
-            printMainMenu();
-        } catch (IllegalArgumentException ex) {
-            System.out.println(ex.getLocalizedMessage());
-            createAccount();
-        }
-    }
+     
 }
      

@@ -8,19 +8,48 @@ package com.mycompany.projectpl2;
  *
  * @author user
  */
-public class Customer extends User {
-  String address;
-  String phone;
-  List<Reservation> reservations;
 
-  // constructor
-  Customer(int id, String name, String email, String password, String address, String phone) {
-    super(id, name, email, password, "customer");
-    this.address = address;
-    this.phone = phone;
-    this.reservations = new ArrayList<>();
-  
-  }
+
+ public class Customer extends User{
+   
+    private String contactDetails;
+    private  String address;
+   
+    public Customer(int id, String name, String email, String password, String contactDetails,String address) {
+        super(id, name, email, password, "employee");
+        this.contactDetails = contactDetails;
+        this.address=address;
+    }
+
+    public String getContactDetails() {
+        return this.contactDetails;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+    
+     public String setContactDetails(String contactDetails) {
+        return this.contactDetails=contactDetails;
+    }
+      public String setaddress(String address) {
+        return this.address= address;
+    }
+public int getId() {
+    return this.id;
+}
+
+public String getName() {
+    return this.name;
+}
+
+ public String getpassword(){
+ return this.password;
+ }
+  public String getrole(){
+  return this.role;
+      }
+}
   // getters and setters
   // ...
 
