@@ -22,5 +22,4 @@ public class Customer extends User{
     }
       public String setaddress(String address) {
         return this.address=address;
-    }
-}
+    }
