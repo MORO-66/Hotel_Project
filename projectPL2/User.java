@@ -10,14 +10,39 @@ package com.mycompany.projectpl2;
  */
 public class User {
 
-  int id;
-  String name;
-  String password;
-  String role;
-  User(int id, String name, String password, String role);
-  void addUser(User user);
-  void updateUser(User user);
-  void deleteUser(int id);
-  User getUserById(int id);
+ private final int id;
+ private final String name;
+ private String email;
+ private String password;
+  private final String role;
+  User(int id, String name,String email, String password, String role){
+  this.id=id;
+  this.name=name;
+  this.email=email;
+  this.password=password;
+  this.role=role;}
+  
+  public int getId() {
+        return this.id;
+    }
 
+    public String getName() {
+        return this.name;
+    }
+    
+     public String getpassword(){
+     return this.password;
+     }
+      public String getrole(){
+      return this.role; }
+      
+      public String getemail(){
+     return this.email;
+     }
+   public void setemail(String email){
+       this.email=email;
+   }
+    public void setpassword(String password){
+       this.password=password;
+}
 }
