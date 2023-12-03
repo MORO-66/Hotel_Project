@@ -9,11 +9,27 @@ package com.mycompany.projectpl2;
  * @author user
  */
 public class Customer extends User {
-  String address;
-  String phone;
-  String email;
-  Customer(int id, String name, String password, String role, String address, String phone, String email);
-  List<Room> getRooms();
-  List<Service> getServices();
-  double getTotalAmount();
+     private String contactDetails;
+    private  String address;
+   
+    public Customer(int id, String name, String email, String password, String contactDetails,String address) {
+        super(id, name, email, password, "employee");
+        this.contactDetails = contactDetails;
+        this.address=address;
+    }
+
+    public String getContactDetails() {
+        return this.contactDetails;
+    }
+
+    public String getAddress() {
+        return this.address;
+    }
+    
+     public void setContactDetails(String contactDetails) {
+        this.contactDetails=contactDetails;
+    }
+      public void setaddress(String address) {
+         this.address=address;
+    }
 }
