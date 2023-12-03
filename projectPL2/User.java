@@ -9,11 +9,11 @@ package com.mycompany.projectpl2;
  * @author user
  */
 public class User {
-  int id;
-  String name;
-  String email;
-  String password;
-  String role; // employee or customer
+  private int id;
+  private String name;
+  private String email;
+  private String password;
+  private String role; // employee or customer
 
   // constructor
   User(int id, String name, String email, String password, String role) {
@@ -26,4 +26,5 @@ public class User {
 
   // getters and setters
   // ...
+
 }
