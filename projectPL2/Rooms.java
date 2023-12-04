@@ -33,7 +33,7 @@ public class Room {
 
   };
   
-  public void int setNumber(int number){
+  public void setNumber(int number){
       this.number=number;
   };
 
@@ -49,7 +49,7 @@ public class Room {
       return type;
   };
   
-  public void int setPrice(double price){
+  public void setPrice(double price){
       this.price=price;
   };
   
@@ -57,7 +57,7 @@ public class Room {
       return price;
   };
 
- public void boolean setStatus(boolean status){
+ public void setStatus(boolean status){
       this.status=status;
   }  
 
