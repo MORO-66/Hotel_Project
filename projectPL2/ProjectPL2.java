@@ -3,8 +3,6 @@ package com.mycompany.projectpl2;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.projectpl2;
-import com.mycompany.projectpl2.*;
 
 import java.util.Scanner;
 
