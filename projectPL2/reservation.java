@@ -1,157 +1,192 @@
-// Importing the necessary packages
-import java.io.*; // For file input and output
-import java.time.*; // For date and time manipulation
-import java.util.*; // For collections and utilities
-
-// Creating a class for reservation
+// A class to represent a reservation
 class Reservation {
-  int id;
-  Customer customer;
-  Room room;
-  Date checkInDate;
-  Date checkOutDate;
+  // Attributes of a reservation
+  private int id; // The reservation id
+  private String name; // The name of the customer
+  private int roomNumber; // The room number reserved
+  private String checkInDate; // The check-in date
+  private String checkOutDate; // The check-out date
 
-  // constructor
-  Reservation(int id, Customer customer, Room room, Date checkInDate, Date checkOutDate) {
+  // A constructor to create a reservation object
+  public Reservation(int id, String name, int roomNumber, String checkInDate, String checkOutDate) {
     this.id = id;
-    this.customer = customer;
-    this.room = room;
+    this.name = name;
+    this.roomNumber = roomNumber;
     this.checkInDate = checkInDate;
     this.checkOutDate = checkOutDate;
   }
 
-  // getters and setters
-  // ...
-
-
-  // Method to write a reservation to a file
-  public void writeReservation() {
-    try {
-      // Creating a file object for the reservation file
-      File file = new File("reservations.txt");
-
-      // Creating a file writer object to append to the file
-      FileWriter fw = new FileWriter(file, true);
-
-      // Creating a buffered writer object to write to the file
-      BufferedWriter bw = new BufferedWriter(fw);
-
-      // Writing the reservation details to the file
-      bw.write(this.customerId + "\n" + this.roomId + "\n" + this.checkIn + "\n" + this.checkOut + "\n" + this.total + "\n");
-
-      // Closing the buffered writer and file writer
-      bw.close();
-      fw.close();
-
-      // Printing a success message
-      System.out.println("Reservation written successfully.");
-    } catch (IOException e) {
-      // Printing an error message
-      System.out.println("Error: " + e.getMessage());
-    }
+  // A method to get the reservation id
+  public int getId() {
+    return id;
   }
 
-  // Method to read all reservations from a file
-  public static ArrayList<Reservation> readAllReservations() {
-    // Creating an array list to store the reservations
-    ArrayList<Reservation> reservations = new ArrayList<>();
+  // A method to get the name of the customer
+  public String getName() {
+    return name;
+  }
 
-    try {
-      // Creating a file object for the reservation file
-      File file = new File("reservations.txt");
+  // A method to get the room number reserved
+  public int getRoomNumber() {
+    return roomNumber;
+  }
 
-      // Creating a file reader object to read from the file
-      FileReader fr = new FileReader(file);
+  // A method to get the check-in date
+  public String getCheckInDate() {
+    return checkInDate;
+  }
 
-      // Creating a buffered reader object to read from the file
-      BufferedReader br = new BufferedReader(fr);
+  // A method to get the check-out date
+  public String getCheckOutDate() {
+    return checkOutDate;
+  }
 
-      // Reading a line from the file
+  // A method to convert the reservation object to a string
+  public String toString() {
+    return id + "," + name + "," + roomNumber + "," + checkInDate + "," + checkOutDate;
+  }
+}
+
+// A class to manage the reservation file
+class ReservationManager {
+  // A constant to store the name of the reservation file
+  private static final String RESERVATION_FILE = "reservations.txt";
+
+  // A method to find and reserve a room from the rooms file
+  public static void findAndReserveRoom(String name, String type, double minPrice, double maxPrice, String checkInDate, String checkOutDate) {
+    // Try to open the rooms file in read mode
+    try (FileReader fr = new FileReader(RoomManager.ROOMS_FILE);
+         BufferedReader br = new BufferedReader(fr)) {
+      // Read each line from the file
       String line = br.readLine();
-
-      // Looping until the end of the file
       while (line != null) {
-        // Splitting the line by comma
-        String[] data = line.split("\n");
-
-        // Parsing the data to create a reservation object
-        int customerId = Integer.parseInt(data[0]);
-        int roomId = Integer.parseInt(data[1]);
-        LocalDate checkIn = LocalDate.parse(data[2]);
-        LocalDate checkOut = LocalDate.parse(data[3]);
-        double total = Double.parseDouble(data[4]);
-        Reservation reservation = new Reservation(customerId, roomId, checkIn, checkOut, total);
-
-        // Adding the reservation to the array list
-        reservations.add(reservation);
-
-        // Reading the next line from the file
+        // Split the line by comma
+        String[] parts = line.split(",");
+        // Create a room object from the parts
+        Room room = new Room(Integer.parseInt(parts[0]), parts[1], Double.parseDouble(parts[2]), Boolean.parseBoolean(parts[3]));
+        // Check if the room matches the filter criteria and is available
+        if (room.getType().equals(type) && room.getPrice() >= minPrice && room.getPrice() <= maxPrice && room.isAvailable()) {
+          // Generate a random reservation id
+          int id = (int) (Math.random() * 1000) + 1;
+          // Create a reservation object with the given name and dates
+          Reservation reservation = new Reservation(id, name, room.getNumber(), checkInDate, checkOutDate);
+          // Add the reservation to the reservation file
+          addReservation(reservation);
+          // Set the room availability to false
+          room.setAvailable(false);
+          // Update the room in the rooms file
+          RoomManager.updateRoom(room.getNumber(), room.getType(), room.getPrice(), room.isAvailable());
+          // Print a success message
+          System.out.println("Room reserved successfully. Your reservation id is " + id + ".");
+          // Return from the method
+          return;
+        }
+        // Read the next line
         line = br.readLine();
       }
-
-      // Closing the buffered reader and file reader
+      // Close the file
       br.close();
-      fr.close();
-
-      // Printing a success message
-      System.out.println("Reservations read successfully.");
+      // Print a message that no room was found
+      System.out.println("No room found that matches the filter and is available.");
     } catch (IOException e) {
-      // Printing an error message
-      System.out.println("Error: " + e.getMessage());
+      // Handle the exception
+      e.printStackTrace();
     }
-
-    // Returning the array list of reservations
-    return reservations;
   }
 
-
-
-  // Method to enter user/guest data if not available
-  public void enterUserData() {
-    // Creating a scanner object to take user input
-    Scanner sc = new Scanner(System.in);
-
-    // Asking the user to enter the customer id
-    System.out.print("Enter the customer id: ");
-    int customerId = sc.nextInt();
-
-    // Checking if the customer id exists in the users list
-    boolean exists = false;
-    for (User user : users) {
-      if (user.id == customerId && user.role.equals("customer")) {
-        exists = true;
-        break;
+  // A method to see my reservation from the reservation file
+  public static void seeMyReservation(int id) {
+    // Try to open the reservation file in read mode
+    try (FileReader fr = new FileReader(RESERVATION_FILE);
+         BufferedReader br = new BufferedReader(fr)) {
+      // Read each line from the file
+      String line = br.readLine();
+      while (line != null) {
+        // Split the line by comma
+        String[] parts = line.split(",");
+        // Create a reservation object from the parts
+        Reservation reservation = new Reservation(Integer.parseInt(parts[0]), parts[1], Integer.parseInt(parts[2]), parts[3], parts[4]);
+        // Check if the reservation id matches the given id
+        if (reservation.getId() == id) {
+          // Print the reservation details
+          System.out.println("Your reservation details are:");
+          System.out.println("Name: " + reservation.getName());
+          System.out.println("Room number: " + reservation.getRoomNumber());
+          System.out.println("Check-in date: " + reservation.getCheckInDate());
+          System.out.println("Check-out date: " + reservation.getCheckOutDate());
+          // Return from the method
+          return;
+        }
+        // Read the next line
+        line = br.readLine();
       }
+      // Close the file
+      br.close();
+      // Print a message that no reservation was found
+      System.out.println("No reservation found with the given id.");
+    } catch (IOException e) {
+      // Handle the exception
+      e.printStackTrace();
     }
-
-    // If the customer id does not exist, asking the user to enter the customer details
-    if (!exists) {
-      // Asking the user to enter the customer name
-      System.out.print("Enter the customer name: ");
-      sc.nextLine(); // Consuming the newline character
-      String customerName = sc.nextLine();
-
-      // Asking the user to enter the customer phone
-      System.out.print("Enter the customer phone: ");
-      String customerPhone = sc.nextLine();
-
-      // Asking the user to enter the customer email
-      System.out.print("Enter the customer email: ");
-      String customerEmail = sc.nextLine();
-
-      // Creating a user object for the customer
-      User customer = new User(customerId, customerName, "customer", customerPhone, customerEmail);
-
-      // Adding the customer to the users list
-      users.add(customer);
-
-      // Adding the customer to the database
-      customer.addUser();
-    }
-
-    // Closing the scanner object
-    sc.close();
   }
 
-  
+  // A method to write and add a reservation to the reservation file
+  public static void writeAndAddReservation(String name, int roomNumber, String checkInDate, String checkOutDate) {
+    // Generate a random reservation id
+    int id = (int) (Math.random() * 1000) + 1;
+    // Create a reservation object with the given name and dates
+    Reservation reservation = new Reservation(id, name, roomNumber, checkInDate, checkOutDate);
+    // Add the reservation to the reservation file
+    addReservation(reservation);
+    // Print a success message
+    System.out.println("Reservation written and added successfully. Your reservation id is " + id + ".");
+  }
+
+  // A method to add a reservation to the reservation file
+  private static void addReservation(Reservation reservation) {
+    // Try to open the reservation file in append mode
+    try (FileWriter fw = new FileWriter(RESERVATION_FILE, true);
+         BufferedWriter bw = new BufferedWriter(fw);
+         PrintWriter pw = new PrintWriter(bw)) {
+      // Write the reservation object as a string to the file
+      pw.println(reservation.toString());
+      // Close the file
+      pw.close();
+    } catch (IOException e) {
+      // Handle the exception
+      e.printStackTrace();
+    }
+  }
+
+  // A method to show all reservations from the reservation file
+  public static void showAllReservations() {
+    // Try to open the reservation file in read mode
+    try (FileReader fr = new FileReader(RESERVATION_FILE);
+         BufferedReader br = new BufferedReader(fr)) {
+      // Print a header
+      System.out.println("All reservations are:");
+      // Read each line from the file
+      String line = br.readLine();
+      while (line != null) {
+        // Split the line by comma
+        String[] parts = line.split(",");
+        // Create a reservation object from the parts
+        Reservation reservation = new Reservation(Integer.parseInt(parts[0]), parts[1], Integer.parseInt(parts[2]), parts[3], parts[4]);
+        // Print the reservation details
+        System.out.println("Reservation id: " + reservation.getId());
+        System.out.println("Name: " + reservation.getName());
+        System.out.println("Room number: " + reservation.getRoomNumber());
+        System.out.println("Check-in date: " + reservation.getCheckInDate());
+        System.out.println("Check-out date: " + reservation.getCheckOutDate());
+        System.out.println();
+        // Read the next line
+        line = br.readLine();
+      }
+      // Close the file
+      br.close();
+    } catch (IOException e) {
+      // Handle the exception
+      e.printStackTrace();
+    }
+  }
 }
