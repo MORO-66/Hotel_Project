@@ -1,6 +1,6 @@
 package com.mycompany.projectpl2;
 
-public class Customer extends User{
+public class Customer extends User {
    
     private String contactDetails;
     private  String address;
@@ -25,3 +25,4 @@ public class Customer extends User{
       public String setaddress(String address) {
         return this.address=address;
     }
+}

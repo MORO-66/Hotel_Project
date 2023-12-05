@@ -1,18 +1,6 @@
 package com.mycompany.projectpl2;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
 public class Main {
-    private static final String USER_FILE = "users.txt";
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
         while (true) {
             System.out.println("1. Register");
             System.out.println("2. Login");
@@ -23,10 +11,10 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    registerUser();
+                    Register.registerUser();
                     break;
                 case 2:
-                    loginUser();
+                    Login.loginUser();
                     break;
                 case 3:
                     System.out.println("Exiting the system. Goodbye!");
@@ -36,8 +24,4 @@ public class Main {
             }
         }
     }
-
-
-
-    
 }
