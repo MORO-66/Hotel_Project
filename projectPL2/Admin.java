@@ -1,3 +1,5 @@
+package com.mycompany.projectpl2;
+
 // A class to represent an admin user
 class Admin extends User {
   // Attributes of an admin user

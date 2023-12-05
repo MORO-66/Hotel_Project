@@ -1,3 +1,5 @@
+package com.mycompany.projectpl2;
+
 public class Customer extends User{
    
     private String contactDetails;

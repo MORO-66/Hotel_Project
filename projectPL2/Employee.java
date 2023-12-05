@@ -1,9 +1,10 @@
+package com.mycompany.projectpl2;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.projectpl2;
 
+import java.util.*;
 /**
  *
  * @author user
@@ -23,6 +24,7 @@ public class Employee extends User {
   // ...
 
   // methods
+  /*
   void addEmployee(Employee e); // add a new employee to the system
   void updateEmployee(int id, Employee e); // update an existing employee by id
   void deleteEmployee(int id); // delete an employee by id
@@ -35,7 +37,7 @@ public class Employee extends User {
 
 
 
-
+*/
 
 
   

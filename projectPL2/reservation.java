@@ -1,3 +1,4 @@
+package com.mycompany.projectpl2;
 // A class to represent a reservation
 class Reservation {
   // Attributes of a reservation
