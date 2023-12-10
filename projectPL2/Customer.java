@@ -23,7 +23,7 @@ public class Customer extends User {
     public Customer() {
         super();
         this.reservations = new ArrayList<>();
-        this.invoice = new Invoice(); // Assuming you have an Invoice class
+        this.invoice = new Invoice();
     }
 
     public void addCustomer(Scanner scanner) {
@@ -44,7 +44,7 @@ public class Customer extends User {
             System.out.println("Customer added successfully!");
         } catch (IOException e) {
             System.out.println("Error adding customer: " + e.getMessage());
-            // Handle the exception or log it as needed
+            
         }
     }
 
@@ -87,7 +87,7 @@ public class Customer extends User {
             System.out.println("Customer deleted successfully!");
         } catch (IOException e) {
             System.out.println("Error deleting customer: " + e.getMessage());
-            // Handle the exception or log it as needed
+            
         }
     }
 
