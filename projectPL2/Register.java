@@ -8,7 +8,7 @@ public class Register {
 
     public static void registerUser() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("------------------Register------------------");
+        System.out.println("------------------Register-----------------");
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
 

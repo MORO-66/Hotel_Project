@@ -8,7 +8,7 @@ public class Login {
 
     public static void login() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("------------------LOGIN------------------");
+        System.out.println("------------------LOGIN-----------------");
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
 
