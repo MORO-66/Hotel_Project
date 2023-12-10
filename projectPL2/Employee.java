@@ -19,29 +19,7 @@ public class Employee extends User {
     this.salary = salary;
     this.department = department;
   }
-
-  // getters and setters
-  // ...
-
-  // methods
-  /*
-  void addEmployee(Employee e); // add a new employee to the system
-  void updateEmployee(int id, Employee e); // update an existing employee by id
-  void deleteEmployee(int id); // delete an employee by id
-  void addCustomer(Customer c); // add a new customer to the system
-  void updateCustomer(int id, Customer c); // update an existing customer by id
-  void deleteCustomer(int id); // delete a customer by id
-  void addRoom(Room r); // add a new room to the system (assignroom)
-  void updateRoom(int number, Room r); // update an existing room by number
-  void deleteRoom(int number); // delete a room by number
-
-
-
-*/
-
-
   
-  // Method to assign room to guest
   public void assignRoom() {
     // Creating a scanner object to take user input
     Scanner sc = new Scanner(System.in);
