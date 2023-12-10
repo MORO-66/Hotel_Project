@@ -1,0 +1,4 @@
+Username: bbb
+Password: mmm
+User Type: customer
+Customer-specific information...
