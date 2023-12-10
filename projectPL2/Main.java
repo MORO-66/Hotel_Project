@@ -2,6 +2,8 @@ package com.mycompany.projectpl2;
 public class Main {
     public static void main(String[] args) {
         while (true) {
+            System.out.println("Hello , my Dear we are pleased to present our service");
+            
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("3. Exit");
