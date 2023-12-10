@@ -3,9 +3,8 @@ import java.util.Scanner;
 
 public class Login {
 
-    private static final String BASE_PATH = "users";
+    private static final String BASE_PATH = "src/users";
     private static String user_file = BASE_PATH + File.separator;
-
     public static void login() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("------------------LOGIN-----------------");
@@ -27,7 +26,7 @@ public class Login {
 
 
 
-    private static String authenticateUser(String username, String password) {
+    static String authenticateUser(String username, String password) {
         // Check if the user exists and the password is correct
         Scanner scanner = new Scanner(System.in);
         System.out.println("Are you an \n1)Admin\n2)User\n3)Customer\nI am a :");

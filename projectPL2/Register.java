@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.Scanner;
 public class Register {
 
-    private static final String BASE_PATH = "users";
+    private static final String BASE_PATH = "src/users";
     //private static final String USER_FILE = BASE_PATH + File.separator + "users.txt";
 
     public static void registerUser() {
@@ -48,18 +48,23 @@ public class Register {
         String userPath = BASE_PATH + File.separator + userType;
         String userFileName = userPath + File.separator + username + ".txt";
         File userFile = new File(userFileName);
+        if (userFile.exists()) {
+            System.out.println("You are already registered before.");
+            Login.authenticateUser(username, password);
+        }
+        else{
+            try {
 
-        try {
+                // Write user information to the file
+                try (PrintWriter writer = new PrintWriter(new FileWriter(userFile, true))) {
+                    writer.println(username + "," + password + "," + userType);
+                    System.out.println("Registration successful!");
+                }
 
-            // Write user information to the file
-            try (PrintWriter writer = new PrintWriter(new FileWriter(userFile, true))) {
-                writer.println(username + "," + password + "," + userType);
-                System.out.println("Registration successful!");
+            } catch (IOException e) {
+                System.out.println("Error creating user directory or file.");
+                e.printStackTrace();
             }
-
-        } catch (IOException e) {
-            System.out.println("Error creating user directory or file.");
-            e.printStackTrace();
         }
     }
 }

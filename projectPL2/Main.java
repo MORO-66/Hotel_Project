@@ -1,13 +1,13 @@
-package com.mycompany.projectpl2;
+//package com.mycompany.projectpl2;
+import java.io.*;
+
+import java.util.*;
 public class Main {
     public static void main(String[] args) {
+        Menu.printWelcomeMessage();
         while (true) {
-            System.out.println("Hello , my Dear we are pleased to present our service");
-            
-            System.out.println("1. Register");
-            System.out.println("2. Login");
-            System.out.println("3. Exit");
-            System.out.print("Choose an option: ");
+            Menu.Loginmenu();
+            Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
 
@@ -16,7 +16,7 @@ public class Main {
                     Register.registerUser();
                     break;
                 case 2:
-                    Login.loginUser();
+                    Login.login();
                     break;
                 case 3:
                     System.out.println("Exiting the system. Goodbye!");
@@ -25,5 +25,8 @@ public class Main {
                     System.out.println("Invalid choice. Please try again.");
             }
         }
+
     }
+
 }
+
