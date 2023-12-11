@@ -9,15 +9,21 @@ package com.mycompany.projectpl2;
  * @author user
  */
 public class User {
-
   int id;
   String name;
+  String email;
   String password;
-  String role;
-  User(int id, String name, String password, String role);
-  void addUser(User user);
-  void updateUser(User user);
-  void deleteUser(int id);
-  User getUserById(int id);
+  String role; // employee or customer
 
+  // constructor
+  User(int id, String name, String email, String password, String role) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+  }
+
+  // getters and setters
+  // ...
 }
