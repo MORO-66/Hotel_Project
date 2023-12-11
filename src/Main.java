@@ -28,9 +28,7 @@ public class Main {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-            System.out.println(user.getRole());
             if (user.getRole().equals("admin") ){
-                System.out.println(user.getRole());
                 Menu.printAdminMenu();
             }
 

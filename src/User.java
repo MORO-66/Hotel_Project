@@ -1,42 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.pl2test;
+//]package com.mycompany.projectpl2;
 
 /**
  *
  * @author user
  */
 public class User {
-    protected static int latestId = 0;
-    int id;
-    protected String name;
-    protected String email;
-    protected String password;
-    String role; // employee or customer
+    private static int latestId = 0;
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    private String role; // employee or customer
 
     // constructor
 
-    public void UserNumbers() {
+    public User() {
         this.id = ++latestId;
     }
 
-    public User(int id, String name, String email, String password, String role) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    public User(UserData userData) {
+
+        this.id = userData.getId();
+        this.name = userData.getName();
+        this.email = userData.getEmail();
+        this.password = userData.getPassword();
+        this.role = userData.getRole();
     }
 
-    @Override
-    public String toString() {
-        return(id+","+ name+","+email+","+password+","+role  ); 
-    }
-
-  
-
+    // getters
     public int getId() {
         return id;
     }
@@ -79,4 +70,3 @@ public class User {
         this.role = role;
     }
 }
-

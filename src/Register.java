@@ -49,29 +49,29 @@ public class Register extends User{
     }
 
     private static void registerUserWithType(String username, String password, String email,String userType) {
-        String userPath = BASE_PATH + File.separator + userType;
-        String userFileName = userPath + File.separator + username + ".txt";
-        File userFile = new File(userFileName);
-        if (userFile.exists()) {
-            System.out.println("You are already registered before.");
-            return;
-
-            //Login.authenticateUser(username, password);
-        }
-        else{
+        String userPath = BASE_PATH + File.separator + userType + ".txt";
+        File userFile = new File(userPath);
+        if (!userFile.exists()) {
             try {
-                //User n = new User();
-                // Write user information to the file
-                latestId++;
-                try (PrintWriter writer = new PrintWriter(new FileWriter(userFile, true))) {
-                    writer.println(latestId + "," + username + "," + password + "," + email + "," + userType);
-                    System.out.println("Registration successful!");
-                }
-
+                userFile.createNewFile();
             } catch (IOException e) {
-                System.out.println("Error creating user directory or file.");
+                System.out.println("Error creating user file.");
                 e.printStackTrace();
+                return;
             }
+        }
+
+        try {
+            latestId++;
+            // Write user information to the file
+            try (PrintWriter writer = new PrintWriter(new FileWriter(userFile, true))) {
+                writer.println(latestId + "," + username + "," + password + "," + email + "," + userType);
+                System.out.println("Registration successful!");
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error writing to user file.");
+            e.printStackTrace();
         }
 
     }

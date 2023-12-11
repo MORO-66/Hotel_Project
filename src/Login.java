@@ -33,13 +33,13 @@ public class Login extends User {
         int who = scanner.nextInt();
         switch (who) {
             case 1:
-                user_file += "admin" + File.separator + username + ".txt";
+                user_file += "admin.txt";
                 break;
             case 2:
-                user_file += "user" + File.separator + username + ".txt";
+                user_file += "user.txt";
                 break;
             case 3:
-                user_file += "customer" + File.separator + username + ".txt";
+                user_file += "customer.txt";
                 break;
             default:
                 System.out.println("Invalid choice. Please choose 1, 2, or 3.");
