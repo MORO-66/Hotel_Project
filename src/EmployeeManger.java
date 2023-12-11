@@ -2,74 +2,110 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.*;
 
 public class EmployeeManger {
-    //private static final String EMPLOYEE_FILE = "employees.txt";
 
         private static final String EMPLOYEES_FOLDER = "src/users/user.txt";
 
         public static void addEmployeeByAdmin() {
             Employee employee = getEmployeeInfoFromAdmin();
+            System.out.println(employee.toString());
             addEmployee(employee);
         }
 
-        public static void updateEmployeeByAdmin() {
-            Scanner scanner = new Scanner(System.in);
+    public static void updateEmployeeByAdmin() {
+        Scanner scanner = new Scanner(System.in);
 
-            System.out.print("Enter employee ID to update: ");
-            int id = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
+        System.out.print("Enter employee ID to update: ");
+        String id = scanner.nextLine();
+        Employee newEmployee = getEmployeeInfoFromAdmin();
+        updateEmployee(id, newEmployee);
+    }
 
-            Employee newEmployee = getEmployeeInfoFromAdmin();
-            updateEmployee(id, newEmployee);
+
+    public static void deleteEmployeeByAdmin() {
+        Scanner scanner = new Scanner(System.in);
+        displayAllEmployees();
+
+        System.out.print("Enter employee ID to delete: ");
+        String id = scanner.nextLine();
+        deleteEmployee(id);
+    }
+
+
+    private static void addEmployee(Employee employee) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(EMPLOYEES_FOLDER, true))) {
+            writer.println(employee.toString());
+            System.out.println("Registration successful!");
+        } catch (IOException e) {
+            System.out.println("Error writing to user file.");
+            e.printStackTrace();
         }
+    }
 
-        public static void deleteEmployeeByAdmin() {
-            Scanner scanner = new Scanner(System.in);
-            displayAllEmployees();
+    private static void updateEmployee(String id, Employee newEmployee) {
+            System.out.println(EMPLOYEES_FOLDER);
+        File employeeFile = new File(EMPLOYEES_FOLDER);
 
-            System.out.print("Enter employee ID to delete: ");
-            String name = scanner.nextLine();
-            scanner.nextLine(); // Consume the newline character
+        try (BufferedReader reader = new BufferedReader(new FileReader(employeeFile))) {
+            List<String> lines = new ArrayList<>();
 
-            deleteEmployee(name);
-        }
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith(id + ",")) {
+                    lines.add(newEmployee.toString());
+                } else {
+                    lines.add(line);
+                }
+            }
 
-        private static void addEmployee(Employee employee) {
-            File employeeFile = new File(employee.getFileName());
-            System.out.println(employeeFile);
+            // Write the updated content back to the file
             try (PrintWriter writer = new PrintWriter(new FileWriter(employeeFile))) {
-                writer.println(employee.toString());
-                System.out.println("Employee added successfully!");
-            } catch (IOException e) {
-                System.out.println("Error occurred while adding the employee.");
-                e.printStackTrace();
+                for (String updatedLine : lines) {
+                    writer.println(updatedLine);
+                }
             }
+
+            System.out.println("Employee updated successfully!");
+        } catch (IOException e) {
+            System.out.println("Error updating employee.");
+            e.printStackTrace();
         }
+    }
 
-        private static void updateEmployee(int id, Employee newEmployee) {
-            File oldEmployeeFile = new File(newEmployee.getName().replace(" ", "_") + ".txt");
-            System.out.println(oldEmployeeFile);
-            File newEmployeeFile = new File(newEmployee.getFileName());
 
-            if (oldEmployeeFile.renameTo(newEmployeeFile)) {
-                System.out.println("Employee updated successfully!");
-            } else {
-                System.out.println("Error occurred while updating the employee.");
+
+    private static void deleteEmployee(String id) {
+        File employeeFile = new File(EMPLOYEES_FOLDER);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(employeeFile))) {
+            List<String> lines = new ArrayList<>();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.startsWith(id + ",")) {
+                    lines.add(line);
+                }
             }
-        }
 
-        private static void deleteEmployee(String name) {
-            File employeeFile = new File("src/users/user", name + ".txt");
-
-            if (employeeFile.delete()) {
-                System.out.println("Employee deleted successfully!");
-            } else {
-                System.out.println("Error occurred while deleting the employee.");
+            // Write the updated content back to the file
+            try (PrintWriter writer = new PrintWriter(new FileWriter(employeeFile))) {
+                for (String updatedLine : lines) {
+                    writer.println(updatedLine);
+                }
             }
-        }
 
-        private static Employee getEmployeeInfoFromAdmin() {
+            System.out.println("Employee deleted successfully!");
+        } catch (IOException e) {
+            System.out.println("Error deleting employee.");
+            e.printStackTrace();
+        }
+    }
+
+
+    private static Employee getEmployeeInfoFromAdmin() {
+            String email;
             Scanner scanner = new Scanner(System.in);
 
             System.out.print("Enter employee name: ");
@@ -84,45 +120,48 @@ public class EmployeeManger {
             System.out.print("Enter employee Password: ");
             String password = scanner.nextLine();
 
-            System.out.print("Enter employee email: ");
-            String email = scanner.nextLine();
-
-            return new Employee(id, name,password,email, role);
+            do {
+                System.out.print("Enter valid Email: ");
+                email = scanner.nextLine();
+            }while (email != null && !email.contains("@"));
+            Employee employee = new Employee(id, name, password, email, role);
+            return employee;
         }
     public static void displayAllEmployees() {
-        File folder = new File(EMPLOYEES_FOLDER);
+        File employeesFile = new File(EMPLOYEES_FOLDER);
 
-        File[] listOfFiles = folder.listFiles();
-        if (listOfFiles != null) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(employeesFile))) {
             System.out.println("Employee List:");
-            for (File file : listOfFiles) {
-                if (file.isFile()) {
-                    Employee employee = readEmployeeFromFile(file);
-                    System.out.println("ID: " + employee.getId() + ", Name: " + employee.getName() + ", Role: " + employee.getRole());
-                }
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Employee employee = createEmployeeFromLine(line);
+                System.out.println("ID: " + employee.getId() + ", Name: " + employee.getName() + ", Role: " + employee.getRole());
             }
-        } else {
-            System.out.println("No employees found.");
+
+        } catch (IOException e) {
+            System.out.println("Error reading employee data from file: " + employeesFile.getName());
+            e.printStackTrace();
         }
     }
+    private static Employee createEmployeeFromLine(String line) {
+        String[] parts = line.split(",");
 
-    private static Employee readEmployeeFromFile(File file) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line = reader.readLine();
-            String[] parts = line.split(",");
+        if (parts.length == 5) {
             String id = parts[0];
             String name = parts[1];
             String password = parts[2];
             String email = parts[3];
             String role = parts[4];
 
-            return new Employee(id, name,password,email, role);
-        } catch (IOException e) {
-            System.out.println("Error occurred while reading employee data from file: " + file.getName());
-            e.printStackTrace();
-            return null;
+            return new Employee(id, name, password, email, role);
+        } else {
+            return null; // Handle the error appropriately
         }
     }
+
+
+
 
     // ... (other methods)
 }
