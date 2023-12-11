@@ -1,0 +1,4 @@
+Username: jh
+Password: jh'
+User Type: admin
+Admin-specific information...

@@ -1,26 +1,42 @@
-package com.mycompany.projectpl2;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.pl2test;
 
 /**
  *
  * @author user
  */
 public class User {
-  private int id;
-  private String name;
-  private String email;
-  private String password;
-  private String role; // employee or customer
+    protected static int latestId = 0;
+    int id;
+    protected String name;
+    protected String email;
+    protected String password;
+    String role; // employee or customer
 
-  // constructor
-  User(int id, String name, String email, String password, String role) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.role = role;
-  }
+    // constructor
 
-   // getters
+    public void UserNumbers() {
+        this.id = ++latestId;
+    }
+
+    public User(int id, String name, String email, String password, String role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return(id+","+ name+","+email+","+password+","+role  ); 
+    }
+
+  
+
     public int getId() {
         return id;
     }
@@ -51,13 +67,9 @@ public class User {
     }
 
     public void setEmail(String email) {
-        // Basic email validation (you can enhance this based on your requirements)
-        if (email != null && email.contains("@")) {
             this.email = email;
-        } else {
-            throw new IllegalArgumentException("Invalid email format");
-        }
     }
+
 
     public void setPassword(String password) {
         this.password = password;
@@ -67,3 +79,4 @@ public class User {
         this.role = role;
     }
 }
+
