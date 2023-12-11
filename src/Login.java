@@ -1,11 +1,12 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class Login {
-
+public class Login extends User {
+    public static String[] userData;
     private static final String BASE_PATH = "src/users";
     private static String user_file = BASE_PATH + File.separator;
-    public static void login() {
+
+    public static UserData login() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("------------------LOGIN-----------------");
         System.out.print("Enter username: ");
@@ -14,7 +15,7 @@ public class Login {
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
 
-        String userType = authenticateUser(username, password);
+        UserData userType = authenticateUser(username, password);
 
         if (userType != null) {
             System.out.println("Login successful! Welcome, " + userType + " " + username + ".");
@@ -22,11 +23,11 @@ public class Login {
         } else {
             System.out.println("Login failed. Invalid username or password.");
         }
+        return userType;
     }
 
 
-
-    static String authenticateUser(String username, String password) {
+    static UserData authenticateUser(String username, String password) {
         // Check if the user exists and the password is correct
         Scanner scanner = new Scanner(System.in);
         System.out.println("Are you an \n1)Admin\n2)User\n3)Customer\nI am a :");
@@ -48,14 +49,17 @@ public class Login {
         try (BufferedReader reader = new BufferedReader(new FileReader(user_file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] userData = line.split(",");
-                if (userData.length == 3) {
-                    String storedUsername = userData[0];
-                    String storedPassword = userData[1];
-                    String userType = userData[2];
+                userData = line.split(",");
+                if (userData.length > 3) {
+                    String storedUsername = userData[1];
+                    String storedPassword = userData[2];
+                    String userType = userData[4];
+
+                    //User s = new User(userData[0], userData[1], userData[2], userData[3], userData[4]);
+
 
                     if (storedUsername.equals(username) && storedPassword.equals(password)) {
-                        return userType.trim(); // User authenticated, return the user type
+                        return new UserData(userData[0], userData[1], userData[2], userData[3], userData[4]);// User authenticated, return the user type
                     }
                 }
             }
@@ -66,4 +70,8 @@ public class Login {
 
         return null; // Authentication failed
     }
+//    public static String[] userget(Object U){
+//        Object v = U;
+//        return Object v = U;
+//    }
 }

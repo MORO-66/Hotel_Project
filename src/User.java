@@ -1,26 +1,33 @@
-package com.mycompany.projectpl2;
+//]package com.mycompany.projectpl2;
 
 /**
  *
  * @author user
  */
 public class User {
-  private int id;
-  private String name;
-  private String email;
-  private String password;
-  private String role; // employee or customer
+    private static int latestId = 0;
+    private int id;
+    private String name;
+    private String email;
+    private String password;
+    private String role; // employee or customer
 
-  // constructor
-  User(int id, String name, String email, String password, String role) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.role = role;
-  }
+    // constructor
 
-   // getters
+    public User() {
+        this.id = ++latestId;
+    }
+
+    public User(UserData userData) {
+
+        this.id = userData.getId();
+        this.name = userData.getName();
+        this.email = userData.getEmail();
+        this.password = userData.getPassword();
+        this.role = userData.getRole();
+    }
+
+    // getters
     public int getId() {
         return id;
     }
@@ -51,13 +58,9 @@ public class User {
     }
 
     public void setEmail(String email) {
-        // Basic email validation (you can enhance this based on your requirements)
-        if (email != null && email.contains("@")) {
             this.email = email;
-        } else {
-            throw new IllegalArgumentException("Invalid email format");
-        }
     }
+
 
     public void setPassword(String password) {
         this.password = password;
