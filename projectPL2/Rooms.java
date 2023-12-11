@@ -1,3 +1,5 @@
+package com.mycompany.projectpl2;
+
 // A class to represent a hotel room
 class Room {
   // Attributes of a room

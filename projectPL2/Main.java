@@ -1,21 +1,40 @@
 //package com.mycompany.projectpl2;
+import java.io.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Creating a user
-        User user1 = new User(1, "John Doe", "john.doe@example.com", "password123", "customer");
+        Menu.printWelcomeMessage();
+        Scanner scanner = new Scanner(System.in);
+        User user = null;
 
-        // Accessing user information using getters
-        System.out.println("User ID: " + user1.getId());
-        System.out.println("User Name: " + user1.getName());
-        System.out.println("User Email: " + user1.getEmail());
-        System.out.println("User Password: " + user1.getPassword());
-        System.out.println("User Role: " + user1.getRole());
+        while (true) {
+            Menu.Loginmenu();
 
-        // Modifying user information using setters
-        user1.setEmail("john.doe.updated@example.com");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
 
-        // Displaying updated user information
-        System.out.println("Updated User Email: " + user1.getEmail());
+            switch (choice) {
+                case 1:
+                    Register.registerUser();
+                    break;
+                case 2:
+                    UserData userData = Login.login();
+                    user = new User(userData);
+                    break;
+                case 3:
+                    System.out.println("Exiting the system. Goodbye!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+            System.out.println(user.getRole());
+            if (user.getRole().equals("admin") ){
+                System.out.println(user.getRole());
+                Menu.printAdminMenu();
+            }
+
+
+        }
     }
 }

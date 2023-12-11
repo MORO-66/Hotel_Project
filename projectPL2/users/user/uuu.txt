@@ -1,0 +1,4 @@
+Username: uuu
+Password: uuu
+User Type: user
+User-specific information...
