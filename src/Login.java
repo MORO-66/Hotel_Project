@@ -16,10 +16,9 @@ public class Login extends User {
         String password = scanner.nextLine();
 
         UserData userType = authenticateUser(username, password);
-
+        System.out.println(userType);
         if (userType != null) {
-            System.out.println("Login successful! Welcome, " + userType + " " + username + ".");
-            // HERE THE CODE TO WHAT BE NEXT
+            System.out.println("Login successful! Welcome, " + username + ".");
         } else {
             System.out.println("Login failed. Invalid username or password.");
         }
@@ -55,9 +54,6 @@ public class Login extends User {
                     String storedPassword = userData[2];
                     String userType = userData[4];
 
-                    //User s = new User(userData[0], userData[1], userData[2], userData[3], userData[4]);
-
-
                     if (storedUsername.equals(username) && storedPassword.equals(password)) {
                         return new UserData(userData[0], userData[1], userData[2], userData[3], userData[4]);// User authenticated, return the user type
                     }
@@ -68,10 +64,6 @@ public class Login extends User {
             e.printStackTrace();
         }
 
-        return null; // Authentication failed
+        return null;
     }
-//    public static String[] userget(Object U){
-//        Object v = U;
-//        return Object v = U;
-//    }
 }

@@ -54,7 +54,9 @@ public class Register extends User{
         File userFile = new File(userFileName);
         if (userFile.exists()) {
             System.out.println("You are already registered before.");
-            Login.authenticateUser(username, password);
+            return;
+
+            //Login.authenticateUser(username, password);
         }
         else{
             try {

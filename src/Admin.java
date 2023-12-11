@@ -1,163 +1,132 @@
-package com.mycompany.projectpl2;
-
+//
+////package com.mycompany.pl3;
+import java.io.*;
 import java.util.*;
-// A class to represent an admin user
-class Admin extends User {
-  // Attributes of an admin user
-  private String role; // The role of the admin user
-  private String password; // The password of the admin user
+class Admin {
 
-  // A constructor to create an admin user object
-  public Admin(String name, String email, String role, String password) {
-    // Call the super class constructor
-    super(name, email);
-    // Initialize the admin attributes
-    this.role = role;
-    this.password = password;
-  }
+    public static Room getRoomInfoFromAdmin() {
+        Scanner scanner = new Scanner(System.in);
 
-  // A method to get the role of the admin user
-  public String getRole() {
-    return role;
-  }
+        System.out.print("Enter room number: ");
+        int number = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
 
-  // A method to get the password of the admin user
-  public String getPassword() {
-    return password;
-  }
+        System.out.print("Enter room type: ");
+        String type = scanner.nextLine();
 
-  // A method to print the admin menu
-  public void printAdminMenu() {
-    // Print a welcome message
-    System.out.println("Welcome, " + getName() + ". You are logged in as " + getRole() + ".");
-    // Print the menu options
-    System.out.println("Please choose an option from the menu:");
-    System.out.println("1. Add a room");
-    System.out.println("2. Update a room");
-    System.out.println("3. Delete a room");
-    System.out.println("4. Show all rooms");
-    System.out.println("5. Show all reservations");
-    System.out.println("6. Log out");
-    // Create a scanner object to read the user input
-    Scanner scanner = new Scanner(System.in);
-    // Read the user choice
-    int choice = scanner.nextInt();
-    // Use a switch case to execute the corresponding function
-    switch (choice) {
-      case 1:
-        // Call the addRoom function
-        addRoom();
-        break;
-      case 2:
-        // Call the updateRoom function
-        updateRoom();
-        break;
-      case 3:
-        // Call the deleteRoom function
-        deleteRoom();
-        break;
-      case 4:
-        // Call the showAllRooms function
-        showAllRooms();
-        break;
-      case 5:
-        // Call the showAllReservations function
-        showAllReservations();
-        break;
-      case 6:
-        // Call the logOut function
-        logOut();
-        break;
-      default:
-        // Print an invalid choice message
-        System.out.println("Invalid choice. Please try again.");
-        // Call the printAdminMenu function again
-        printAdminMenu();
-        break;
+        System.out.print("Enter room status: ");
+        String status = scanner.nextLine();
+
+        return new Room(number, type, status);
     }
-  }
 
-  // A method to add a room
-  public void addRoom() {
-    // Create a scanner object to read the user input
-    Scanner scanner = new Scanner(System.in);
-    // Prompt the user to enter the room details
-    System.out.println("Please enter the room number:");
-    int number = scanner.nextInt();
-    System.out.println("Please enter the room type:");
-    String type = scanner.next();
-    System.out.println("Please enter the room price:");
-    double price = scanner.nextDouble();
-    System.out.println("Please enter the room availability (true or false):");
-    boolean available = scanner.nextBoolean();
-    // Create a room object with the given details
-    Room room = new Room(number, type, price, available);
-    // Call the addRoom method from the RoomManager class
-    RoomManager.addRoom(room);
-    // Print a confirmation message
-    System.out.println("Room added successfully.");
-    // Call the printAdminMenu function again
-    printAdminMenu();
-  }
+    public static void addRoomByAdmin() {
+        Admin.displayAllRooms();
+        Room room = getRoomInfoFromAdmin();
+        addRoom(room);
+    }
 
-  // A method to update a room
-  public void updateRoom() {
-    // Create a scanner object to read the user input
-    Scanner scanner = new Scanner(System.in);
-    // Prompt the user to enter the room number
-    System.out.println("Please enter the room number to update:");
-    int number = scanner.nextInt();
-    // Prompt the user to enter the new room details
-    System.out.println("Please enter the new room type:");
-    String type = scanner.next();
-    System.out.println("Please enter the new room price:");
-    double price = scanner.nextDouble();
-    System.out.println("Please enter the new room availability (true or false):");
-    boolean available = scanner.nextBoolean();
-    // Call the updateRoom method from the RoomManager class
-    RoomManager.updateRoom(number, type, price, available);
-    // Print a confirmation message
-    System.out.println("Room updated successfully.");
-    // Call the printAdminMenu function again
-    printAdminMenu();
-  }
+    public static void updateRoomByAdmin() {
+        Scanner scanner = new Scanner(System.in);
+        displayAllRooms();
+        System.out.print("Enter room number to update: ");
+        int number = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
 
-  // A method to delete a room
-  public void deleteRoom() {
-    // Create a scanner object to read the user input
-    Scanner scanner = new Scanner(System.in);
-    // Prompt the user to enter the room number
-    System.out.println("Please enter the room number to delete:");
-    int number = scanner.nextInt();
-    // Call the deleteRoom method from the RoomManager class
-    RoomManager.deleteRoom(number);
-    // Print a confirmation message
-    System.out.println("Room deleted successfully.");
-    // Call the printAdminMenu function again
-    printAdminMenu();
-  }
+        Room newRoom = getRoomInfoFromAdmin();
+        updateRoom(number, newRoom);
+    }
 
-  // A method to show all rooms
-  public void showAllRooms() {
-    // Call the showAllRooms method from the RoomManager class
-    RoomManager.showAllRooms();
-    // Call the printAdminMenu function again
-    printAdminMenu();
-  }
+    public static void deleteRoomByAdmin() {
+        Scanner scanner = new Scanner(System.in);
 
-  // A method to show all reservations
-  public void showAllReservations() {
-    // Call the showAllReservations method from the ReservationManager class
-    ReservationManager.showAllReservations();
-    // Call the printAdminMenu function again
-    printAdminMenu();
-  }
+        System.out.print("Enter room number to delete: ");
+        int number = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
 
-  // A method to log out
-  public void logOut() {
-    // Print a goodbye message
-    System.out.println("Thank you for using the hotel management system. Goodbye.");
-    // Exit the program
-    System.exit(0);
-  }
+        deleteRoom(number);
+    }
+    private static final String ROOM_FILE = "src/users/admin/Rooms/rooms.txt";
+     public static void addRoom(Room room){
+         try (PrintWriter writer = new PrintWriter(new FileWriter(ROOM_FILE, true))) {
+             writer.println("\n" + room.toString());
+             System.out.println("Room added successfully!");
+         } catch (IOException e) {
+             System.out.println("Error occurred while adding the room.");
+             e.printStackTrace();
+         }
+    }
+    public static void updateRoom(int number, Room newRoom) {
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(ROOM_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                int currentNumber = Integer.parseInt(parts[0]);
+                if (currentNumber == number) {
+                    lines.add(newRoom.toString());
+                } else {
+                    lines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred while updating the room.");
+            e.printStackTrace();
+            return;
+        }
+
+        writeLinesToFile(lines);
+        System.out.println("Room updated successfully!");
+    }
+
+    public static void deleteRoom(int number) {
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(ROOM_FILE))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                int currentNumber = Integer.parseInt(parts[0]);
+                if (currentNumber != number) {
+                    lines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred while deleting the room.");
+            e.printStackTrace();
+            return;
+        }
+
+        writeLinesToFile(lines);
+        System.out.println("Room deleted successfully!");
+    }
+
+    private static void writeLinesToFile(List<String> lines) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(ROOM_FILE))) {
+            for (String line : lines) {
+                writer.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+    public static void displayAllRooms() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(ROOM_FILE))) {
+            String line;
+            System.out.println("Room List:");
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                int number = Integer.parseInt(parts[0]);
+                String type = parts[1];
+                String status = parts[2];
+
+                System.out.println("Number: " + number + ", Type: " + type + ", Status: " + status);
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred while reading room data.");
+            e.printStackTrace();
+        }
+    }
 }

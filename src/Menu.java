@@ -20,6 +20,50 @@ public class Menu {
         System.out.println("Welcome to the program with Java!");
     }
 
-
-
+    public static void printAdminMenu() {
+        int c = 1;
+        System.out.println("Please choose an option from the menu:");
+        System.out.println("1. Add a room");
+        System.out.println("2. Update a room");
+        System.out.println("3. Delete a room");
+        System.out.println("4. Show all rooms");
+        System.out.println("5. Show all reservations");
+        System.out.println("6. Log out");
+        // Create a scanner object to read the user input
+        Scanner scanner = new Scanner(System.in);
+        // Read the user choice
+        int choice = scanner.nextInt();
+        // Use a switch case to execute the corresponding function
+        while (c != 0) {
+            switch (choice) {
+                case 1:
+                    // Call the addRoom function
+                    Admin.addRoomByAdmin();
+                    break;
+                case 2:
+                    // Call the updateRoom function
+                    Admin.updateRoomByAdmin();
+                    break;
+                case 3:
+                    // Call the deleteRoom function
+                    Admin.deleteRoomByAdmin();
+                    break;
+                case 4:
+                    // Call the showAllRooms function
+                    Admin.displayAllRooms();
+                    break;
+//            case 5:
+//                // Call the showAllReservations function
+//                showAllReservations();
+//                break;
+                case 6:
+                    System.out.println("Good Bye");
+                    c = 0;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
 }
