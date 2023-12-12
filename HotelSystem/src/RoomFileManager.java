@@ -45,7 +45,7 @@ public static void deleteRoomByAdmin() {
 
     deleteRoom(number);
 }
-private static final String ROOM_FILE = "src/users/rooms.txt";
+static final String ROOM_FILE = "src/users/rooms.txt";
 public static void addRoom(Room room){
     try (PrintWriter writer = new PrintWriter(new FileWriter(ROOM_FILE, true))) {
         writer.println(room.toString());
