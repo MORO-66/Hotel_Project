@@ -69,7 +69,11 @@ class ReservationManager extends User{
 
     // A method to write and add a reservation to the reservation file
     public static void writeAndAddReservation(String name, int roomNumber, String checkInDate, String checkOutDate) {
-        // Generate a random reservation id
+        Scanner scanner = new Scanner(System.in);
+
+
+
+
         int id = (int) (Math.random() * 1000) + 1;
         // Create a reservation object with the given name and dates
         reservation Reservation = new reservation(id, name, roomNumber, checkInDate, checkOutDate);

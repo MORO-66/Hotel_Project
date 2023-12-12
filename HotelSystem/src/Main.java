@@ -8,6 +8,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         User user = null;
 
+
+        //ReservationManager.writeAndAddReservation();
         while (true) {
             Menu.Loginmenu();
 
