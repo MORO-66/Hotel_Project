@@ -1,4 +1,0 @@
-Username: MORO-66
-Password: 0plm0plm
-User Type: customer
-Customer-specific information...

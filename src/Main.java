@@ -1,13 +1,17 @@
 //package com.mycompany.projectpl2;
 import java.io.*;
-
 import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
+        int c = 0;
         Menu.printWelcomeMessage();
+        Scanner scanner = new Scanner(System.in);
+        User user = null;
+
         while (true) {
             Menu.Loginmenu();
-            Scanner scanner = new Scanner(System.in);
+
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
 
@@ -16,7 +20,9 @@ public class Main {
                     Register.registerUser();
                     break;
                 case 2:
-                    Login.login();
+                    UserData userData = Login.login();
+                    user = new User(userData);
+                    c = 1;
                     break;
                 case 3:
                     System.out.println("Exiting the system. Goodbye!");
@@ -24,9 +30,11 @@ public class Main {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
+            if (c == 1 && user.getRole().equals("admin")){
+                Menu.printAdminMenu();
+            }
+
+
         }
-
     }
-
 }
-

@@ -1,4 +1,0 @@
-Username: bbbb
-Password: bbbb
-User Type: user
-User-specific information...
