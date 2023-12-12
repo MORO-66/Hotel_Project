@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Menu {
+public class Menu implements Menu {
     public static void Loginmenu() {
         System.out.println("Hello , my Dear we are pleased to present our service");
 
