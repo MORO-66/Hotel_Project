@@ -1,12 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;//
-////package com.mycompany.pl3;
-//
-//import java.io.*;
-//import java.util.Arrays;
-//
+import java.util.Scanner;
 public class RoomFileManager {
 public static Room getRoomInfoFromAdmin() {
     Scanner scanner = new Scanner(System.in);
