@@ -119,4 +119,42 @@ public class /*Menu implements*/ Menu {
         }
     }
 
+    public static void displayCustomerMenu() {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\nCustomer Menu:");
+            System.out.println("1. Add Customer");
+            System.out.println("2. Update Customer");
+            System.out.println("3. Delete Customer");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    Customer C = new Customer();
+                    C.addCustomer(scanner);
+                    break;
+                case 2:
+                    Customer Ca = new Customer();
+                    //Ca.updateCustomer();
+                    break;
+                case 3:
+                    Customer Cu = new Customer();
+                    //Cu.deleteCustomer();
+                    //deleteCustomer(scanner);
+                    break;
+                case 4:
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+        } while (choice != 4);
+
+        scanner.close();
+
+    }
 }
