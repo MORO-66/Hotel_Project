@@ -8,24 +8,34 @@ public class Room {
   private String type;
   private String status;
 
-  public Room(int number, String type, String status) {
+  private double price;
+
+  public Room(int number, String type, String status, double price) {
     this.number = number;
     this.type = type;
     this.status = status;
+    this.price = price;
   }
 
+
   public int getNumber() {
-    return number;
+    return this.number;
   }
 
   public String getType() {
-    return type;
+    return this.type;
   }
 
   public String getStatus() {
-    return status;
+    return this.status;
   }
 
+  public void setStatus(String status){
+    this.status = status;
+  }
+  public double getPrice(){
+    return this.price;
+  }
   @Override
   public String toString() {
     return number + "," + type + "," + status;

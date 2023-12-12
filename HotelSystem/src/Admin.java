@@ -17,7 +17,9 @@ class Admin {
         System.out.print("Enter room status: ");
         String status = scanner.nextLine();
 
-        return new Room(number, type, status);
+        System.out.print("Enter room price: ");
+        double price = scanner.nextDouble();
+        return new Room(number, type, status,price);
     }
 
     public static void addRoomByAdmin() {

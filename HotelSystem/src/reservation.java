@@ -1,5 +1,6 @@
 //package com.mycompany.projectpl2;
 // A class to represent a reservation
+import java.awt.geom.QuadCurve2D;
 import java.io.*;
 import java.util.*;
 class Reservation {
@@ -66,9 +67,9 @@ class ReservationManager {
         // Split the line by comma
         String[] parts = line.split(",");
         // Create a room object from the parts
-        Room room = new Room(Integer.parseInt(parts[0]), parts[1], Double.parseDouble(parts[2]), Boolean.parseBoolean(parts[3]));
+        Room room = new Room(Integer.parseInt(parts[0]), parts[1], parts[2], Double.parseDouble(parts[3]));
         // Check if the room matches the filter criteria and is available
-        if (room.getType().equals(type) && room.getPrice() >= minPrice && room.getPrice() <= maxPrice && room.isAvailable()) {
+        if (room.getType().equals(type) && room.getPrice() >= minPrice && room.getPrice() <= maxPrice && room.getStatus().equals("true")) {
           // Generate a random reservation id
           int id = (int) (Math.random() * 1000) + 1;
           // Create a reservation object with the given name and dates
@@ -76,9 +77,9 @@ class ReservationManager {
           // Add the reservation to the reservation file
           addReservation(reservation);
           // Set the room availability to false
-          room.setAvailable(false);
+          room.setStatus("false");
           // Update the room in the rooms file
-          RoomManager.updateRoom(room.getNumber(), room.getType(), room.getPrice(), room.isAvailable());
+          RoomFileManager.updateRoom(room.getNumber(), room);
           // Print a success message
           System.out.println("Room reserved successfully. Your reservation id is " + id + ".");
           // Return from the method
