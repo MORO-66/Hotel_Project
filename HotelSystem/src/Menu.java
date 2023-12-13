@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class /*Menu implements*/ Menu {
+public class  Menu {
     public static void Loginmenu() {
         System.out.println("Hello , my Dear we are pleased to present our service");
 
@@ -156,12 +156,76 @@ public class /*Menu implements*/ Menu {
 
     }
 
-    public static void displayCustomerMenu(){
-        System.out.println("\nCustomer Menu:");
-        System.out.println("1. Add Customer");
-        System.out.println("2. Update Customer");
-        System.out.println("3. Delete Customer");
-        System.out.println("4. Exit");
+    public static void displayCustomerMenu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nHELLO THERE");
+        System.out.println("1. BOOK ROOM");
+        System.out.println("2. Request Service");
+        System.out.println("3. Show Bill");
+        System.out.println("4. LOG OUT");
         System.out.print("Enter your choice: ");
+        int choice;
+        choice = scanner.nextInt();
+        do {
+            switch (choice) {
+                case 1:
+                    displayBookMenu();
+                    break;
+                case 2:
+                    CustomerFileManager.updateCustomerByAdmin();
+                    break;
+                case 3:
+                    CustomerFileManager.deleteCustomerByAdmin();
+
+                    break;
+                case 4:
+                    CustomerFileManager.displayAllCustomer();
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+        } while (choice != 4);
+
+    }
+
+
+    private static void displayBookMenu() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("1. View Room Availability");
+            System.out.println("2. Book a Room");
+            System.out.println("3. View My Bookings");
+            System.out.println("4. Check-out");
+            System.out.println("5. Update Profile");
+            System.out.println("6. Logout");
+
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    //viewRoomAvailability();
+                    break;
+                case 2:
+                    //bookRoom(customer);
+                    break;
+                case 3:
+                    //viewMyBookings(customer);
+                    break;
+                case 4:
+                    //checkOut(customer);
+                    break;
+                case 5:
+                    //updateProfile(customer);
+                    break;
+                case 6:
+                    System.out.println("Logging out. Goodbye, ");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
     }
 }
