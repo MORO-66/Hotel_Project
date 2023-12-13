@@ -33,11 +33,11 @@ public class /*Menu implements*/ Menu {
             switch (choice) {
                 case 1:
                     // Call the addRoom function
-                    adminEmployeeMenu();
+                    //adminEmployeeMenu();
                     break;
                 case 2:
                     // Call the updateRoom function
-                    RoomFileManager.updateRoomByAdmin();
+                    //adminEmployeeMenu();
                     break;
                 case 3:
                     // Call the deleteRoom function
@@ -89,72 +89,81 @@ public class /*Menu implements*/ Menu {
 
     }
 
-    public static void adminEmployeeMenu() {
-        while (true) {
-            System.out.println("Please choose an option from the menu:");
-            System.out.println("1. Add an Employee");
-            System.out.println("2. Update an Employee");
-            System.out.println("3. Delete an Employee");
-            System.out.println("4. Show all Employee");
-            System.out.println("6. previous");
-            Scanner scanner = new Scanner(System.in);
-            int choice = scanner.nextInt();
+//    public static void adminEmployeeMenu() {
+//        while (true) {
+//            System.out.println("Please choose an option from the menu:");
+//            System.out.println("1. Add an Employee");
+//            System.out.println("2. Update an Employee");
+//            System.out.println("3. Delete an Employee");
+//            System.out.println("4. Show all Employee");
+//            System.out.println("6. previous");
+//            Scanner scanner = new Scanner(System.in);
+//            int choice = scanner.nextInt();
+//
+//            switch (choice) {
+//                case 1:
+//                    CustomerFileManager.addCustomerByAdmin();
+//                    break;
+//                case 2:
+//                    CustomerFileManager.updateCustomerByAdmin();
+//                    break;
+//                case 3:
+//                    CustomerFileManager.deleteCustomerByAdmin();
+//                    break;
+//                case 4:
+//                    CustomerFileManager.displayAllCustomer();
+//                    break;
+//                case 6:
+//                    return;
+//            }
+//        }
+//    }
 
-            switch (choice) {
-                case 1:
-                    EmployeeManger.addEmployeeByAdmin();
-                    break;
-                case 2:
-                    EmployeeManger.updateEmployeeByAdmin();
-                    break;
-                case 3:
-                    EmployeeManger.deleteEmployeeByAdmin();
-                    break;
-                case 4:
-                    EmployeeManger.displayAllEmployees();
-                    break;
-                case 6:
-                    return;
-            }
-        }
-    }
+//    public static void AdminCustomerMenu() {
+//        Scanner scanner = new Scanner(System.in);
+//        int choice;
+//
+//        do {
+//            System.out.println("\nCustomer Menu:");
+//            System.out.println("1. Add Customer");
+//            System.out.println("2. Update Customer");
+//            System.out.println("3. Delete Customer");
+//            System.out.println("4. Exit");
+//            System.out.print("Enter your choice: ");
+//            choice = scanner.nextInt();
+//
+//            switch (choice) {
+//                case 1:
+//                    Customer C = new Customer();
+//                    C.addCustomer(scanner);
+//                    break;
+//                case 2:
+//                    Customer Ca = new Customer();
+//                    //Ca.updateCustomer();
+//                    break;
+//                case 3:
+//                    Customer Cu = new Customer();
+//                    //Cu.deleteCustomer();
+//                    //deleteCustomer(scanner);
+//                    break;
+//                case 4:
+//                    break;
+//                default:
+//                    System.out.println("Invalid choice. Please try again.");
+//            }
+//
+//        } while (choice != 4);
+//
+//        scanner.close();
+//
+//    }
 
-    public static void displayCustomerMenu() {
-        Scanner scanner = new Scanner(System.in);
-        int choice;
-
-        do {
-            System.out.println("\nCustomer Menu:");
-            System.out.println("1. Add Customer");
-            System.out.println("2. Update Customer");
-            System.out.println("3. Delete Customer");
-            System.out.println("4. Exit");
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    Customer C = new Customer();
-                    C.addCustomer(scanner);
-                    break;
-                case 2:
-                    Customer Ca = new Customer();
-                    //Ca.updateCustomer();
-                    break;
-                case 3:
-                    Customer Cu = new Customer();
-                    //Cu.deleteCustomer();
-                    //deleteCustomer(scanner);
-                    break;
-                case 4:
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-
-        } while (choice != 4);
-
-        scanner.close();
-
+    public static void displayCustomerMenu(){
+        System.out.println("\nCustomer Menu:");
+        System.out.println("1. Add Customer");
+        System.out.println("2. Update Customer");
+        System.out.println("3. Delete Customer");
+        System.out.println("4. Exit");
+        System.out.print("Enter your choice: ");
     }
 }

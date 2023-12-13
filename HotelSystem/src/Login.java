@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Login extends User {
     public static String[] userData;
-    private static final String BASE_PATH = "src/users";
-    private static String user_file = BASE_PATH + File.separator;
+    private static final String BASE_PATH = "src/users/";
+    private static String user_file = BASE_PATH;
 
     public static UserData login() {
         Scanner scanner = new Scanner(System.in);
@@ -31,15 +31,19 @@ public class Login extends User {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Are you an \n1)Admin\n2)User\n3)Customer\nI am a :");
         int who = scanner.nextInt();
+        System.out.println(user_file);
         switch (who) {
             case 1:
-                user_file += "admin.txt";
+                if(!user_file.equals("src/users/admin.txt")){
+                user_file += "admin.txt";}
                 break;
             case 2:
-                user_file += "user.txt";
+                if(!user_file.equals("src/users/admin.txt")){
+                    user_file += "user.txt";}
                 break;
             case 3:
-                user_file += "customer.txt";
+                if(!user_file.equals("src/users/admin.txt")){
+                    user_file += "customer.txt";}
                 break;
             default:
                 System.out.println("Invalid choice. Please choose 1, 2, or 3.");

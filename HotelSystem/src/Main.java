@@ -35,7 +35,11 @@ public class Main {
                 Menu.printAdminMenu();
             }
             if (c == 1 && user.getRole().equals("user")){
-                Menu.displayCustomerMenu();
+                //Menu.displayEnployeeMenu();
+            }
+            if (c == 1 && user.getRole().equals("customer")){
+                //1
+                // Menu.displayCustomerMenu();
             }
 
 
