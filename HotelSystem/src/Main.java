@@ -38,8 +38,7 @@ public class Main {
                 //Menu.displayEnployeeMenu();
             }
             if (c == 1 && user.getRole().equals("customer")){
-                //1
-                // Menu.displayCustomerMenu();
+                Menu.displayCustomerMenu();
             }
 
 

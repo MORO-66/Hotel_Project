@@ -1,42 +1,32 @@
-public class Customer {
-    private String customerId;
-    private String firstName;
-    private String lastName;
+public class Customer  extends User {
+
+    private int id;
+    private String name;
+    private String role;
     private String email;
-    private String phoneNumber;
+    private String password;
+    public Customer() {
+        super();
+    }
 
-    public Customer(String customerId, String firstName, String lastName, String email, String phoneNumber) {
-        this.customerId = customerId;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Customer(String id, String name, String email, String password, String role) {
+        super(name, email, password, role);
+        this.id =Integer.parseInt(id);
+        this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.role = role;
+    }
+    public int getId() {
+        return id;
     }
 
-    // Getters and setters for each attribute
-
-    public String getCustomerId() {
-        return customerId;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getRole() {
+        return role;
     }
 
     public String getEmail() {
@@ -47,24 +37,28 @@ public class Customer {
         this.email = email;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-    // Additional methods as needed
-
-    @Override
     public String toString() {
-        return "Customer{" +
-                "customerId='" + customerId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
+        return id + "," + name + "," +password + "," + email + "," + role;
     }
+   // @Override
+//    public String toString() {
+//        return "Customer{" +
+//                "customerId='" + getCustomerId() + '\'' +
+//                ", firstName='" + getFirstName() + '\'' +
+//                ", lastName='" + getLastName() + '\'' +
+//                ", email='" + getEmail() + '\'' +
+//                ", phoneNumber='" + getPhoneNumber() + '\'' +
+//                ", id=" + getId() +
+//                ", name='" + getName() + '\'' +
+//                ", role='" + getRole() + '\'' +
+//                '}';
+//    }
+
 }

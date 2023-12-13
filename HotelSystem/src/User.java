@@ -14,6 +14,13 @@ public class User {
 
     // constructor
 
+    public User(String name, String email, String password, String role) {
+        this.id = ++latestId;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
     public User() {
         this.id = ++latestId;
     }
