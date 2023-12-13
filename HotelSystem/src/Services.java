@@ -5,8 +5,10 @@ import java.text.SimpleDateFormat;
 
 public class Services {
     private static final String REPORTS_FOLDER = "src/reports";
+    private static final String Service_FOLDER = "src/reser";
     private static final String SERVICES_FILE = "src/services/services.txt";
     private static final String BILL = "src/BILL";
+    private static final String REQUESTED_SERVICES_FILE = "src/reser/requested_services.txt";
     private static final String REPORT_FILE_EXTENSION = ".txt";
 
     public void createReport() {
@@ -187,122 +189,98 @@ public class Services {
             e.printStackTrace();
         }
     }
+    public void requestService(User customer) {
+        // Display available services
+        displayServices();
 
+        Scanner scanner = new Scanner(System.in);
 
+        // Get the service name from the customer
+        System.out.print("Enter the name of the service to request: ");
+        String requestedServiceName = scanner.nextLine();
 
-    public static void updateCustomerBill(int customerId, double totalBill) {
-        String billFilePath = BILL + customerId + "_bill.txt";
+        // Get the quantity or any additional information as needed
+        System.out.print("Enter the quantity or additional information: ");
+        String serviceDetails = scanner.nextLine();
 
-        try (PrintWriter writer = new PrintWriter(new FileWriter(billFilePath))) {
-            writer.println(totalBill);
+        // Check if the requested service exists
+        double servicePrice = getServicePrice(requestedServiceName);
+        if (servicePrice > 0) {
+            // Append the requested service to the file
+            appendRequestedService(customer.getName(), requestedServiceName, serviceDetails, servicePrice);
+
+            // Update the customer's bill with the service price
+            updateCustomerBill(customer.getName(), servicePrice);
+
+            System.out.println("Service requested successfully!");
+        } else {
+            System.out.println("Requested service not found.");
+        }
+    }
+
+    private void appendRequestedService(String customerName, String serviceName, String serviceDetails, double servicePrice) {
+        String requestedService = customerName + "," + serviceName + "," + serviceDetails + "," + servicePrice;
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(REQUESTED_SERVICES_FILE, true))) {
+            writer.println(requestedService);
         } catch (IOException e) {
-            System.out.println("Error updating customer bill file: " + e.getMessage());
+            System.out.println("Error appending requested service to the file.");
             e.printStackTrace();
         }
     }
-public void all(){
-    Scanner scanner = new Scanner(System.in);
-    String serviceFileName = "src/services/services.txt";
-    try (BufferedReader br = new BufferedReader(new FileReader(serviceFileName))) {
-        String line;
-        System.out.println("Available Services:");
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-        return;
-    }
 
-    // Get customer name
-    System.out.print("\nEnter customer name: ");
-    String customerName = scanner.nextLine();
+    private double getServicePrice(String serviceName) {
+        List<String> services = readServicesFromFile();
 
-    // Get selected services
-    System.out.print("Enter selected services (comma-separated): ");
-    String[] selectedServices = scanner.nextLine().split(",");
-
-    // Calculate total services cost
-    double totalServicesCost = 0.0;
-    try (BufferedReader br = new BufferedReader(new FileReader(serviceFileName))) {
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] serviceData = line.split(",");
-            for (String selectedService : selectedServices) {
-                if (selectedService.trim().equals(serviceData[0])) {
-                    totalServicesCost += Double.parseDouble(serviceData[2]);
-                }
-            }
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-        return;
-    }
-
-    // Calculate room price
-    double roomPrice = 100.0;  // Replace with your actual room price calculation logic
-
-    // Calculate total bill
-    double totalBill = roomPrice + totalServicesCost;
-
-    // Write to the bill file
-    String billFileName = "bill_" + customerName + ".txt";
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter(billFileName))) {
-        bw.write("Customer: " + customerName);
-        bw.newLine();
-        bw.write("Room Price: " + roomPrice);
-        bw.newLine();
-        bw.write("Total Services Cost: " + totalServicesCost);
-        bw.newLine();
-        bw.write("Total Bill: " + totalBill);
-        System.out.println("\nBill has been generated for " + customerName + ". Check " + billFileName);
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-
-    scanner.close();
-}
-    public static void generateBill(String customerName, double roomPrice, List<String> selectedServices) {
-        String billFileName = BILL + "/" + "bill_" + customerName + ".txt";
-
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(billFileName))) {
-            bw.write("Customer: " + customerName);
-            bw.newLine();
-            bw.write("Room Price: " + roomPrice);
-            bw.newLine();
-
-            double totalServicesCost = 0.0;
-            Services s = new Services();
-            for (String selectedService : selectedServices) {
-                double servicePrice = getServicePrice(selectedService, s.readServicesFromFile());
-                totalServicesCost += servicePrice;
-                bw.write(selectedService + ": $" + servicePrice);
-                bw.newLine();
-            }
-
-            double totalBill = roomPrice + totalServicesCost;
-            bw.write("Total Services Cost: " + totalServicesCost);
-            bw.newLine();
-            bw.write("Total Bill: " + totalBill);
-
-            System.out.println("\nBill has been generated for " + customerName + ". Check " + billFileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public static double getServicePrice(String serviceName, List<String> availableServices) {
-        for (String service : availableServices) {
+        for (String service : services) {
             String[] parts = service.split(",");
-            if (parts.length == 2) {
-                String name = parts[0].trim();
-                double price = Double.parseDouble(parts[1].trim());
+            String name = parts[0].trim();
+            double price = Double.parseDouble(parts[2].trim());
 
-                if (name.equalsIgnoreCase(serviceName)) {
-                    return price;
-                }
+            if (name.equalsIgnoreCase(serviceName)) {
+                return price;
             }
         }
+
         return 0.0; // Service not found or has no cost
     }
+
+    private void updateCustomerBill(String customerName, double servicePrice) {
+        String customerBillFileName = BILL + "/" + customerName + "_bill.txt";
+
+        File billFile = new File(customerBillFileName);
+
+        try {
+            if (billFile.exists()) {
+                // If the file exists, read the existing total price and add the new service price
+                double existingTotal = readExistingTotal(billFile);
+                servicePrice += existingTotal;
+            } else {
+                // If the file doesn't exist, create a new file
+                billFile.createNewFile();
+            }
+
+            // Write the updated or new total to the file
+            try (PrintWriter writer = new PrintWriter(new FileWriter(billFile))) {
+                writer.println(servicePrice);
+            } catch (IOException e) {
+                System.out.println("Error updating customer bill with service price.");
+                e.printStackTrace();
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error accessing the bill file: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private double readExistingTotal(File billFile) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(billFile))) {
+            String line = reader.readLine();
+            return Double.parseDouble(line.trim());
+        }
+    }
+
+
 }
 

@@ -2,5 +2,6 @@
 34432,room,false,99904.0
 88,onebed,false,9990.0
 33,twobed,false,234234.0
-423,yyy,true,9988.0
+423,yyy,false,9988.0
 324,wef,false,342.0
+555,oop,false,9.99999999E8

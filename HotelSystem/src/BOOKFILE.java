@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 
 class BOOKFILE{
+    static final String BILL_FOLDER = "src/BILL/";
     static final String ROOM_FILE = "src/users/rooms.txt";
     static final String BOOKINGS_FILE = "src/users/booking.txt";
     static void bookRoom(User u) {
@@ -27,26 +28,50 @@ class BOOKFILE{
 
             System.out.print("Enter check-out date (yyyy-MM-dd): ");
             String checkOutDate = scanner.next();
-            int id 
-            BOOK booking = new BOOK(roomNumber, u.getId(), checkInDate, checkOutDate);
+            int  id = u.getId() + 1;
+            BOOK booking = new BOOK(roomNumber, id, checkInDate, checkOutDate);
             addBooking(booking);
             updateRoomAvailability(rooms, roomNumber, false);
-            generateCustomerBillFile(u.getId(), selectedRoom.getPrice(), checkInDate, checkOutDate);
+            generateCustomerBillFile(u.getName(), selectedRoom.getPrice(), checkInDate, checkOutDate);
             System.out.println("Room booked successfully!");
         } else {
             System.out.println("Room is not available or does not exist.");
         }
     }
-    private static void generateCustomerBillFile(int customerId, double roomPrice, String checkInDate, String checkOutDate) {
-        String customerBillFileName = "src/BILL/" + customerId + "_bill.txt";
+    private static void generateCustomerBillFile(String name, double roomPrice, String checkInDate, String checkOutDate) {
+        String customerBillFileName = BILL_FOLDER + name + "_bill.txt";
 
-        try (PrintWriter writer = new PrintWriter(new FileWriter(customerBillFileName))) {
-            writer.println(customerId + roomPrice);
+        File billFile = new File(customerBillFileName);
 
-            System.out.println("Customer-specific bill file generated: " + customerBillFileName);
+        try {
+            if (billFile.exists()) {
+                // If the file exists, read the existing price and add the new room price
+                double existingPrice = readExistingPrice(billFile);
+                roomPrice += existingPrice;
+            } else {
+                // If the file doesn't exist, create a new file
+                billFile.createNewFile();
+            }
+
+            // Write the updated or new price to the file
+            try (PrintWriter writer = new PrintWriter(new FileWriter(billFile))) {
+                writer.println(roomPrice);
+                System.out.println("Customer-specific bill file generated/updated: " + customerBillFileName);
+            } catch (IOException e) {
+                System.out.println("Error generating/updating customer-specific bill file.");
+                e.printStackTrace();
+            }
+
         } catch (IOException e) {
-            System.out.println("Error generating customer-specific bill file.");
+            System.out.println("Error accessing the bill file: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    private static double readExistingPrice(File billFile) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(billFile))) {
+            String line = reader.readLine();
+            return Double.parseDouble(line.trim());
         }
     }
     private static void generateCustomerBookingFile(int customerId, BOOK booking) {
@@ -266,19 +291,7 @@ class BOOKFILE{
         }
     }
 
-    // ... (existing code)
 
-//    private static BOOK createBookingFromLine(String line) {
-//        String[] parts = line.split(",");
-//        if (parts.length == 4) {
-//            int roomNumber = Integer.parseInt(parts[0]);
-//            int customerId = Integer.parseInt(parts[1]);
-//            String checkInDate = parts[2];
-//            String checkOutDate = parts[3];
-//            return new BOOK(roomNumber, customerId, checkInDate, checkOutDate);
-//        }
-//        return null;
-//    }
 
 
 }

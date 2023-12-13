@@ -165,69 +165,8 @@ public class CustomerFileManager{
 
     }
 
-//    public double calculateBill() {
-//        double totalBill = 0;
-//        // Implement the logic to calculate the total bill based on the added services
-//        // For simplicity, let's assume a fixed cost per service for now
-//        double serviceCost = 10.0; // Replace with the actual service cost
-//        totalBill += serviceCost;
-//        saveTotalBill();
-//        return totalBill;
-//    }
-
-//    private void loadTotalBill() {
-//        // Load the total bill from the customer's file
-//        String fileName = BILL + customerId + ".txt";
-//        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-//            String line = reader.readLine();
-//            if (line != null) {
-//                totalBill = Double.parseDouble(line);
-//            }
-//        } catch (IOException | NumberFormatException e) {
-//            // Handle the exception (e.g., file not found, invalid format)
-//            System.out.println("Error loading total bill for customer " + customerId);
-//            e.printStackTrace();
-//        }
-//    }
-
-//    private void saveTotalBill() {
-//        // Save the total bill to the customer's file
-//        String fileName = "src/customers/" + customerId + ".txt";
-//        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
-//            writer.println(totalBill);
-//        } catch (IOException e) {
-//            // Handle the exception (e.g., file not found, write error)
-//            System.out.println("Error saving total bill for customer " + customerId);
-//            e.printStackTrace();
-//        }
-//    }
-
-    // Additional methods and getters/setters as needed
 
 
 
 
-//    public void viewServicesAndSelect() {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Enter customer ID: ");
-//        int customerId = scanner.nextInt();
-//
-//        Customer customer = new Customer(customerId);
-//
-//        System.out.println("Customer's Total Bill: $" + customer.calculateBill());
-//    }
-
-
-        public static void updateCustomerBill(int customerId, double totalBill) {
-            String billFilePath = BILL + customerId + "_bill.txt";
-
-            try (PrintWriter writer = new PrintWriter(new FileWriter(billFilePath))) {
-                writer.println(totalBill);
-            } catch (IOException e) {
-                System.out.println("Error updating customer bill file: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-
-        // Additional methods as needed
 }

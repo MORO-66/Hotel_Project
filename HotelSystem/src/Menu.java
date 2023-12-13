@@ -180,7 +180,7 @@ public class  Menu {
                     displayBookMenu((User)e);
                     break;
                 case 2:
-                    displayServiceMenu(e);
+                    displayServiceMenu((User)e);
                     break;
                 case 3:
                     CustomerFileManager.deleteCustomerByAdmin();
@@ -253,8 +253,8 @@ public class  Menu {
                     break;
                 case 2:
                     Services na = new Services();
-                    Customer c = new Customer();
-                    c.customerInteraction();
+                    Object c = new Customer();
+                    na.requestService((User) e);
                     break;
                 case 3:
 
