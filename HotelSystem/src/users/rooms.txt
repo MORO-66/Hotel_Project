@@ -1,3 +1,3 @@
 2,roo,false,99990.0
 34432,room,true,99904.0
-88,onebed,true,9990.0
+88,onebed,false,9990.0

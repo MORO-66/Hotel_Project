@@ -27,7 +27,7 @@ public class  Menu {
         System.out.println("1. Manage Employee");
         System.out.println("2. Manage Customer");
         System.out.println("3. Manage Rooms");
-        System.out.println("4. Manage Rooms");
+        System.out.println("4. Show all Reports");
         System.out.println("5. Log out");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
@@ -47,6 +47,7 @@ public class  Menu {
                 case 4:
                     Services s = new Services();
                     s.viewAllReports();
+                    break;
                 case 5:
                     System.out.println("Good Bye");
                     c = 0;
@@ -132,8 +133,8 @@ public class  Menu {
             System.out.println("1. Add Customer");
             System.out.println("2. Update Customer");
             System.out.println("3. Delete Customer");
-            System.out.println("3. Show Customers");
-            System.out.println("4. Exit");
+            System.out.println("4. Show Customers");
+            System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
 
@@ -151,11 +152,13 @@ public class  Menu {
                 case 4:
                     CustomerFileManager.displayAllCustomer();
                     break;
+                case 5:
+                    System.out.println("شرفنا يا باشا");
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
 
-        } while (choice != 4);
+        } while (choice != 5);
 
         scanner.close();
 
@@ -174,7 +177,7 @@ public class  Menu {
         do {
             switch (choice) {
                 case 1:
-                    displayBookMenu(e);
+                    displayBookMenu((User)e);
                     break;
                 case 2:
                     displayServiceMenu(e);
@@ -184,7 +187,7 @@ public class  Menu {
 
                     break;
                 case 4:
-                    CustomerFileManager.displayAllCustomer();
+                    //CustomerFileManager.displayAllCustomer();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -234,8 +237,8 @@ public class  Menu {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("1. View Room Availability");
-            System.out.println("2. Book a Room");
+            System.out.println("1. View all services");
+            System.out.println("2. Request Service");
             System.out.println("3. View My Bookings");
             System.out.println("4. generate reports");
             System.out.println("5. Logout");
@@ -245,13 +248,16 @@ public class  Menu {
 
             switch (choice) {
                 case 1:
-                    RoomFileManager.displayAllRooms();
+                    Services n = new Services();
+                    n.displayServices();
                     break;
                 case 2:
-                    BOOKFILE.bookRoom((User)e);
+                    Services na = new Services();
+                    na.viewServicesAndSelect();
                     break;
                 case 3:
-                    BOOKFILE.viewMyBookings((User)e);
+
+                    BOOKFILE.viewMyBookings((User) e);
                     break;
                 case 4:
                     Services s = new Services();
@@ -265,4 +271,45 @@ public class  Menu {
             }
         }
     }
+    static void displayEmployeeeMenu(){
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nService Management:");
+            System.out.println("1. Add Service");
+            System.out.println("2. Update Service");
+            System.out.println("3. Delete Service");
+            System.out.println("4. Display Services");
+            System.out.println("5. Exit");
+            System.out.print("Select an option: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            switch (choice) {
+                case 1:
+                    Services s = new Services();
+                    s.addService();
+                    break;
+                case 2:
+                    Services se = new Services();
+                    se.updateService();
+                    break;
+                case 3:
+                    Services sa = new Services();
+                    sa.deleteService();
+                    break;
+                case 4:
+                    Services so = new Services();
+                    so.displayServices();
+                    break;
+                case 5:
+                    System.out.println("Exiting service management. Goodbye!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
 }

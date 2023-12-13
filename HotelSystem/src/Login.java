@@ -35,16 +35,14 @@ public class Login extends User {
         System.out.println(user_file);
         switch (who) {
             case 1:
-                if(!user_file.equals("src/users/admin.txt")){
-                user_file += "admin.txt";}
+                user_file = "src/users/admin.txt";
                 break;
             case 2:
-                if(!user_file.equals("src/users/admin.txt")){
-                    user_file += "user.txt";}
+
+                    user_file = "src/users/user.txt";
                 break;
             case 3:
-                if(!user_file.equals("src/users/admin.txt")){
-                    user_file += "customer.txt";}
+                    user_file = "src/users/customer.txt";
                 break;
             default:
                 System.out.println("Invalid choice. Please choose 1, 2, or 3.");
