@@ -122,8 +122,9 @@ public static void displayAllRooms() {
             int number = Integer.parseInt(parts[0]);
             String type = parts[1];
             String status = parts[2];
+            String price = parts[3];
 
-            System.out.println("Number: " + number + ", Type: " + type + ", Status: " + status);
+            System.out.println("Number: " + number + ", Type: " + type + ", Status: " + status + ", price: " + price);
         }
     } catch (IOException e) {
         System.out.println("Error occurred while reading room data.");

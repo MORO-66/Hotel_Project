@@ -38,6 +38,6 @@ public class Room {
   }
   @Override
   public String toString() {
-    return number + "," + type + "," + status;
+    return number + "," + type + "," + status + "," + price;
   }
 }

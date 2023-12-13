@@ -21,6 +21,7 @@ public class Login extends User {
             System.out.println("Login successful! Welcome, " + username + ".");
         } else {
             System.out.println("Login failed. Invalid username or password.");
+
         }
         return userType;
     }
@@ -61,6 +62,9 @@ public class Login extends User {
                     if (storedUsername.equals(username) && storedPassword.equals(password)) {
                         return new UserData(userData[0], userData[1], userData[2], userData[3], userData[4]);// User authenticated, return the user type
                     }
+//                    else {
+//                        System.out.println("wrong username or password");
+//                    }
                 }
             }
         } catch (IOException e) {

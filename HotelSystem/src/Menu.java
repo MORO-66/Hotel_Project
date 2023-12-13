@@ -1,4 +1,5 @@
 import java.io.*;
+import java.security.Provider;
 import java.util.*;
 
 public class  Menu {
@@ -26,7 +27,8 @@ public class  Menu {
         System.out.println("1. Manage Employee");
         System.out.println("2. Manage Customer");
         System.out.println("3. Manage Rooms");
-        System.out.println("4. Log out");
+        System.out.println("4. Manage Rooms");
+        System.out.println("5. Log out");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         while (c != 0) {
@@ -43,6 +45,9 @@ public class  Menu {
                     adminRoommenu();
                     break;
                 case 4:
+                    Services s = new Services();
+                    s.viewAllReports();
+                case 5:
                     System.out.println("Good Bye");
                     c = 0;
                     break;
@@ -80,7 +85,7 @@ public class  Menu {
                 RoomFileManager.displayAllRooms();
                 break;
             case 6:
-                break;
+                return;
             default:
                 System.out.println("Invalid choice. Please try again.");
                 break;
@@ -156,7 +161,7 @@ public class  Menu {
 
     }
 
-    public static void displayCustomerMenu() {
+    public static void displayCustomerMenu(Object e) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nHELLO THERE");
         System.out.println("1. BOOK ROOM");
@@ -169,10 +174,10 @@ public class  Menu {
         do {
             switch (choice) {
                 case 1:
-                    displayBookMenu();
+                    displayBookMenu(e);
                     break;
                 case 2:
-                    CustomerFileManager.updateCustomerByAdmin();
+                    displayServiceMenu(e);
                     break;
                 case 3:
                     CustomerFileManager.deleteCustomerByAdmin();
@@ -190,7 +195,7 @@ public class  Menu {
     }
 
 
-    private static void displayBookMenu() {
+    static void displayBookMenu(Object e) {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -198,29 +203,61 @@ public class  Menu {
             System.out.println("2. Book a Room");
             System.out.println("3. View My Bookings");
             System.out.println("4. Check-out");
-            System.out.println("5. Update Profile");
-            System.out.println("6. Logout");
+            System.out.println("5. Logout");
 
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    //viewRoomAvailability();
+                    RoomFileManager.displayAllRooms();
                     break;
                 case 2:
-                    //bookRoom(customer);
+                    BOOKFILE.bookRoom((User)e);
                     break;
                 case 3:
-                    //viewMyBookings(customer);
+                    BOOKFILE.viewMyBookings((User)e);
                     break;
                 case 4:
-                    //checkOut(customer);
+                    BOOKFILE.checkOut((User)e);
                     break;
                 case 5:
-                    //updateProfile(customer);
+                    System.out.println("Logging out. Goodbye, ");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void displayServiceMenu(Object e){
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("1. View Room Availability");
+            System.out.println("2. Book a Room");
+            System.out.println("3. View My Bookings");
+            System.out.println("4. generate reports");
+            System.out.println("5. Logout");
+
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    RoomFileManager.displayAllRooms();
                     break;
-                case 6:
+                case 2:
+                    BOOKFILE.bookRoom((User)e);
+                    break;
+                case 3:
+                    BOOKFILE.viewMyBookings((User)e);
+                    break;
+                case 4:
+                    Services s = new Services();
+                    s.createReport();
+                    break;
+                case 5:
                     System.out.println("Logging out. Goodbye, ");
                     return;
                 default:

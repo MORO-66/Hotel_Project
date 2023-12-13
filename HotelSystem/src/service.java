@@ -13,9 +13,8 @@ public class service {
     private String description;
     private double price;
     private List<ServiceUsage> serviceUsages;
-    private static final String DATA_FILE = "services.txt";
+    private static final String DATA_FILE = "src/users/services.txt";
 
-    // getters and setters
     public void setID(int id){
         this.id=id;
     }
