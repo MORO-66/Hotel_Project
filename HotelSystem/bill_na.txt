@@ -1,0 +1,4 @@
+Customer: na
+Room Price: 100.0
+Total Services Cost: 2332.0
+Total Bill: 2432.0

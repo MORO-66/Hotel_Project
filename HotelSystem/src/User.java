@@ -6,7 +6,7 @@
  */
 public class User {
     private static int latestId = 0;
-    private int id;
+    private static int id;
     private String name;
     private String email;
     private String password;

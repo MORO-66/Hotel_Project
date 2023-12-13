@@ -1,0 +1,4 @@
+Customer: mohamed
+Room Price: 100.0
+Total Services Cost: 99.0
+Total Bill: 199.0

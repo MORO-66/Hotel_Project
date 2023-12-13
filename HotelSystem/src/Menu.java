@@ -253,7 +253,8 @@ public class  Menu {
                     break;
                 case 2:
                     Services na = new Services();
-                    na.viewServicesAndSelect();
+                    Customer c = new Customer();
+                    c.customerInteraction();
                     break;
                 case 3:
 

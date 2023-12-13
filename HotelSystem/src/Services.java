@@ -189,33 +189,7 @@ public class Services {
     }
 
 
-    public void viewServicesAndSelect() {
-        List<String> services = readServicesFromFile();
 
-        if (!services.isEmpty()) {
-            System.out.println("Available Services:");
-            displayServices();
-
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("\nEnter the name of the service you want to use: ");
-            String selectedService = scanner.nextLine();
-            System.out.println(selectedService + services.toString());
-            if (services.contains(selectedService)) {
-                System.out.println("You have selected the service: " + selectedService);
-
-//                Customer customer = new Customer();
-//                customer.addService(selectedService);
-//
-//                double totalBill = customer.calculateBill();
-
-                System.out.println("Service added to your account. Your total bill is: $" /*+ totalBill*/);
-            } else {
-                System.out.println("Invalid service selection. Please try again.");
-            }
-        } else {
-            System.out.println("No services available.");
-        }
-    }
     public static void updateCustomerBill(int customerId, double totalBill) {
         String billFilePath = BILL + customerId + "_bill.txt";
 
@@ -226,18 +200,109 @@ public class Services {
             e.printStackTrace();
         }
     }
-public static double getServicePrice(String serviceName, List<String> availableServices) {
-    for (String service : availableServices) {
-        String[] parts = service.split(",");
-        if (parts.length == 3) {
-            String name = parts[0].trim();
-            double price = Double.parseDouble(parts[2].trim());
+public void all(){
+    Scanner scanner = new Scanner(System.in);
+    String serviceFileName = "src/services/services.txt";
+    try (BufferedReader br = new BufferedReader(new FileReader(serviceFileName))) {
+        String line;
+        System.out.println("Available Services:");
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+        return;
+    }
 
-            if (name.equalsIgnoreCase(serviceName)) {
-                return price;
+    // Get customer name
+    System.out.print("\nEnter customer name: ");
+    String customerName = scanner.nextLine();
+
+    // Get selected services
+    System.out.print("Enter selected services (comma-separated): ");
+    String[] selectedServices = scanner.nextLine().split(",");
+
+    // Calculate total services cost
+    double totalServicesCost = 0.0;
+    try (BufferedReader br = new BufferedReader(new FileReader(serviceFileName))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] serviceData = line.split(",");
+            for (String selectedService : selectedServices) {
+                if (selectedService.trim().equals(serviceData[0])) {
+                    totalServicesCost += Double.parseDouble(serviceData[2]);
+                }
             }
         }
+    } catch (IOException e) {
+        e.printStackTrace();
+        return;
     }
-    return 0.0; // Service not found or has no cost
+
+    // Calculate room price
+    double roomPrice = 100.0;  // Replace with your actual room price calculation logic
+
+    // Calculate total bill
+    double totalBill = roomPrice + totalServicesCost;
+
+    // Write to the bill file
+    String billFileName = "bill_" + customerName + ".txt";
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(billFileName))) {
+        bw.write("Customer: " + customerName);
+        bw.newLine();
+        bw.write("Room Price: " + roomPrice);
+        bw.newLine();
+        bw.write("Total Services Cost: " + totalServicesCost);
+        bw.newLine();
+        bw.write("Total Bill: " + totalBill);
+        System.out.println("\nBill has been generated for " + customerName + ". Check " + billFileName);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    scanner.close();
 }
+    public static void generateBill(String customerName, double roomPrice, List<String> selectedServices) {
+        String billFileName = BILL + "/" + "bill_" + customerName + ".txt";
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(billFileName))) {
+            bw.write("Customer: " + customerName);
+            bw.newLine();
+            bw.write("Room Price: " + roomPrice);
+            bw.newLine();
+
+            double totalServicesCost = 0.0;
+            Services s = new Services();
+            for (String selectedService : selectedServices) {
+                double servicePrice = getServicePrice(selectedService, s.readServicesFromFile());
+                totalServicesCost += servicePrice;
+                bw.write(selectedService + ": $" + servicePrice);
+                bw.newLine();
+            }
+
+            double totalBill = roomPrice + totalServicesCost;
+            bw.write("Total Services Cost: " + totalServicesCost);
+            bw.newLine();
+            bw.write("Total Bill: " + totalBill);
+
+            System.out.println("\nBill has been generated for " + customerName + ". Check " + billFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static double getServicePrice(String serviceName, List<String> availableServices) {
+        for (String service : availableServices) {
+            String[] parts = service.split(",");
+            if (parts.length == 2) {
+                String name = parts[0].trim();
+                double price = Double.parseDouble(parts[1].trim());
+
+                if (name.equalsIgnoreCase(serviceName)) {
+                    return price;
+                }
+            }
+        }
+        return 0.0; // Service not found or has no cost
+    }
 }
+

@@ -27,15 +27,44 @@ class BOOKFILE{
 
             System.out.print("Enter check-out date (yyyy-MM-dd): ");
             String checkOutDate = scanner.next();
-
+            int id 
             BOOK booking = new BOOK(roomNumber, u.getId(), checkInDate, checkOutDate);
             addBooking(booking);
             updateRoomAvailability(rooms, roomNumber, false);
+            generateCustomerBillFile(u.getId(), selectedRoom.getPrice(), checkInDate, checkOutDate);
             System.out.println("Room booked successfully!");
         } else {
             System.out.println("Room is not available or does not exist.");
         }
     }
+    private static void generateCustomerBillFile(int customerId, double roomPrice, String checkInDate, String checkOutDate) {
+        String customerBillFileName = "src/BILL/" + customerId + "_bill.txt";
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(customerBillFileName))) {
+            writer.println(customerId + roomPrice);
+
+            System.out.println("Customer-specific bill file generated: " + customerBillFileName);
+        } catch (IOException e) {
+            System.out.println("Error generating customer-specific bill file.");
+            e.printStackTrace();
+        }
+    }
+    private static void generateCustomerBookingFile(int customerId, BOOK booking) {
+        String customerBookingFileName = "src/BILL/" + customerId + ".txt";
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(customerBookingFileName))) {
+            writer.println("Room Number: " + booking.getRoomNumber());
+            writer.println("Check-in Date: " + booking.getCheckInDate());
+            writer.println("Check-out Date: " + booking.getCheckOutDate());
+            // Add more details as needed
+
+            System.out.println("Customer-specific booking file generated: " + customerBookingFileName);
+        } catch (IOException e) {
+            System.out.println("Error generating customer-specific booking file.");
+            e.printStackTrace();
+        }
+    }
+
 
     private static void updateRoomAvailability(List<Room> rooms, int roomNumber, boolean isAvailable) {
         for (Room room : rooms) {

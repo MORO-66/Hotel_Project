@@ -110,7 +110,7 @@ public class Customer  extends User {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter your customer ID: ");
-        int customerId = scanner.nextInt();
+        int customerId = getId();
         scanner.nextLine(); // Consume the newline character
 
         Customer customer = new Customer(customerId);
