@@ -33,7 +33,7 @@ class Admin {
         displayAllRooms();
         System.out.print("Enter room number to update: ");
         int number = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        scanner.nextLine();
 
         Room newRoom = getRoomInfoFromAdmin();
         updateRoom(number, newRoom);
@@ -44,7 +44,7 @@ class Admin {
 
         System.out.print("Enter room number to delete: ");
         int number = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
+        scanner.nextLine();
 
         deleteRoom(number);
     }

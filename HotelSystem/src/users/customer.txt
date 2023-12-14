@@ -1,5 +1,2 @@
-23,sdaf,asdf@sfd,asdf,customer
-1234234,mmm,asdf@sdaf,asdf,customer
-1,mohamed,ra,mohamed@mo,customer
-1,mo,mo,mo@mo,customer
-1,mo,mo,mo@das,customer
+1,ahmed,123123,ahmed@gmail.com,customer
+90,moh,90,sd@sd,customer

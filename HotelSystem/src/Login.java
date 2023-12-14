@@ -16,7 +16,6 @@ public class Login extends User {
         String password = scanner.nextLine();
 
         UserData userType = authenticateUser(username, password);
-        System.out.println(userType);
         if (userType != null) {
             System.out.println("Login successful! Welcome, " + username + ".");
         } else {
@@ -32,7 +31,6 @@ public class Login extends User {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Are you an \n1)Admin\n2)User\n3)Customer\nI am a :");
         int who = scanner.nextInt();
-        System.out.println(user_file);
         switch (who) {
             case 1:
                 user_file = "src/users/admin.txt";
@@ -47,7 +45,6 @@ public class Login extends User {
             default:
                 System.out.println("Invalid choice. Please choose 1, 2, or 3.");
         }
-        System.out.println(user_file);
         try (BufferedReader reader = new BufferedReader(new FileReader(user_file))) {
             String line;
             while ((line = reader.readLine()) != null) {

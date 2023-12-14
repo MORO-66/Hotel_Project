@@ -1,5 +1,5 @@
-import java.io.*;
-import java.security.Provider;
+
+import java.io.IOException;
 import java.util.*;
 
 public class  Menu {
@@ -23,16 +23,18 @@ public class  Menu {
 
     public static void printAdminMenu() {
         int c = 1;
-        System.out.println("Please choose an option from the menu:");
-        System.out.println("1. Manage Employee");
-        System.out.println("2. Manage Customer");
-        System.out.println("3. Manage Rooms");
-        System.out.println("4. Show all Reports");
-        System.out.println("5. Log out");
-        Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
+
         while (c != 0) {
+            System.out.println("Please choose an option from the menu:");
+            System.out.println("1. Manage Employee");
+            System.out.println("2. Manage Customer");
+            System.out.println("3. Manage Rooms");
+            System.out.println("4. Show all Reports");
+            System.out.println("5. Log out");
+            Scanner scanner = new Scanner(System.in);
+            int choice = scanner.nextInt();
             switch (choice) {
+
                 case 1:
 
                     adminEmployeeMenu();
@@ -41,7 +43,6 @@ public class  Menu {
                     AdminCustomerMenu();
                     break;
                 case 3:
-                    // Call the deleteRoom function
                     adminRoommenu();
                     break;
                 case 4:
@@ -70,19 +71,15 @@ public class  Menu {
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                // Call the addRoom function
                 RoomFileManager.addRoomByAdmin();
                 break;
             case 2:
-                // Call the updateRoom function
                 RoomFileManager.updateRoomByAdmin();
                 break;
             case 3:
-                // Call the deleteRoom function
                 RoomFileManager.deleteRoomByAdmin();
                 break;
             case 4:
-                // Call the showAllRooms function
                 RoomFileManager.displayAllRooms();
                 break;
             case 6:
@@ -95,13 +92,14 @@ public class  Menu {
     }
 
     public static void adminEmployeeMenu() {
-        while (true) {
+        int exit = 1;
+        while (exit != 0) {
             System.out.println("Please choose an option from the menu:");
             System.out.println("1. Add an Employee");
             System.out.println("2. Update an Employee");
             System.out.println("3. Delete an Employee");
             System.out.println("4. Show all Employee");
-            System.out.println("6. previous");
+            System.out.println("5. previous");
             Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
 
@@ -118,7 +116,8 @@ public class  Menu {
                 case 4:
                     EmployeeManger.displayAllEmployees();
                     break;
-                case 6:
+                case 5:
+                    exit = 0;
                     return;
             }
         }
@@ -154,6 +153,8 @@ public class  Menu {
                     break;
                 case 5:
                     System.out.println("شرفنا يا باشا");
+                    break;
+
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
@@ -164,30 +165,32 @@ public class  Menu {
 
     }
 
-    public static void displayCustomerMenu(Object e) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\nHELLO THERE");
-        System.out.println("1. BOOK ROOM");
-        System.out.println("2. Request Service");
-        System.out.println("3. Show Bill");
-        System.out.println("4. LOG OUT");
-        System.out.print("Enter your choice: ");
+    public static void displayCustomerMenu(User e) {
+
         int choice;
-        choice = scanner.nextInt();
+
         do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("\nHELLO THERE");
+            System.out.println("1. BOOK ROOM");
+            System.out.println("2. Request Service");
+            System.out.println("3. Show Bill");
+            System.out.println("4. LOG OUT");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    displayBookMenu((User)e);
+                    displayBookMenu(e);
                     break;
                 case 2:
-                    displayServiceMenu((User)e);
+                    displayServiceMenu(e);
                     break;
                 case 3:
-                    CustomerFileManager.deleteCustomerByAdmin();
-
+                    try {
+                        System.out.println("you total price is :" + BOOKFILE.readExistingPrice(UserData.getName()));
+                    }catch (IOException ee){System.out.println("all good");}
                     break;
                 case 4:
-                    //CustomerFileManager.displayAllCustomer();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -206,7 +209,7 @@ public class  Menu {
             System.out.println("2. Book a Room");
             System.out.println("3. View My Bookings");
             System.out.println("4. Check-out");
-            System.out.println("5. Logout");
+            System.out.println("5. previous");
 
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
@@ -281,7 +284,8 @@ public class  Menu {
             System.out.println("2. Update Service");
             System.out.println("3. Delete Service");
             System.out.println("4. Display Services");
-            System.out.println("5. Exit");
+            System.out.println("5. Display Requests Services");
+            System.out.println("6. Exit");
             System.out.print("Select an option: ");
 
             int choice = scanner.nextInt();
@@ -305,6 +309,10 @@ public class  Menu {
                     so.displayServices();
                     break;
                 case 5:
+                    Services v = new Services();
+                    v.viewRequestedServices();
+                    break;
+                case 6:
                     System.out.println("Exiting service management. Goodbye!");
                     System.exit(0);
                 default:

@@ -39,6 +39,7 @@ public class CustomerFileManager{
     private static void addCustomer(Customer customer) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(Customer_FOLDER, true))) {
             writer.println(customer.toString());
+            System.out.println(customer.toString());
             System.out.println("Registration successful!");
         } catch (IOException e) {
             System.out.println("Error writing to user file.");
@@ -62,7 +63,6 @@ public class CustomerFileManager{
                 }
             }
 
-            // Write the updated content back to the file
             try (PrintWriter writer = new PrintWriter(new FileWriter(employeeFile))) {
                 for (String updatedLine : lines) {
                     writer.println(updatedLine);
@@ -90,7 +90,6 @@ public class CustomerFileManager{
                 }
             }
 
-            // Write the updated content back to the file
             try (PrintWriter writer = new PrintWriter(new FileWriter(employeeFile))) {
                 for (String updatedLine : lines) {
                     writer.println(updatedLine);
@@ -159,7 +158,7 @@ public class CustomerFileManager{
 
             return new Customer(id, name, password, email, role);
         } else {
-            return null; // Handle the error appropriately
+            return null;
         }
 
 

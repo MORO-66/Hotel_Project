@@ -1,6 +1,6 @@
 public class UserData {
-    private int id;
-    private String name;
+    private static int id;
+    private static String name;
     private String email;
     private String password;
     private String role;
@@ -12,11 +12,11 @@ public class UserData {
         this.password = password;
         this.role = role;
     }
-    public int getId() {
+    public static int getId() {
         return id;
     }
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 

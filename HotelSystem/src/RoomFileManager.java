@@ -8,7 +8,7 @@ public static Room getRoomInfoFromAdmin() {
 
     System.out.print("Enter room number: ");
     int number = scanner.nextInt();
-    scanner.nextLine(); // Consume the newline character
+    scanner.nextLine();
 
     System.out.print("Enter room type: ");
     String type = scanner.nextLine();
@@ -43,7 +43,7 @@ public static void deleteRoomByAdmin() {
 
     System.out.print("Enter room number to delete: ");
     int number = scanner.nextInt();
-    scanner.nextLine(); // Consume the newline character
+    scanner.nextLine();
 
     deleteRoom(number);
 }

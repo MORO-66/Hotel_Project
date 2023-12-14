@@ -10,7 +10,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String role; // employee or customer
+    private String role;
 
     // constructor
 

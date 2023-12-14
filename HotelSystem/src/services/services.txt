@@ -1,5 +1,4 @@
-shhs,hdh,99.0
-na,ads,2332.0
-food,mmm,93.0
-may,sdf,990.0
-asdf,asdf,23.0
+extrafood,have_good_desert_in_great_dishes,99.0
+GYM,have_full_experiences_and_enjoy_being_healthy,1000.0
+movie,basic,200.0
+

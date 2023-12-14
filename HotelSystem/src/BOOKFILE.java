@@ -1,6 +1,4 @@
 import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +13,7 @@ class BOOKFILE{
     static final String BOOKINGS_FILE = "src/users/booking.txt";
     static void bookRoom(User u) {
         Scanner scanner = new Scanner(System.in);
-
+        RoomFileManager.displayAllRooms();
         System.out.print("Enter room number to book: ");
         int roomNumber = scanner.nextInt();
 
@@ -45,18 +43,14 @@ class BOOKFILE{
 
         try {
             if (billFile.exists()) {
-                // If the file exists, read the existing price and add the new room price
                 double existingPrice = readExistingPrice(billFile);
                 roomPrice += existingPrice;
             } else {
-                // If the file doesn't exist, create a new file
                 billFile.createNewFile();
             }
 
-            // Write the updated or new price to the file
             try (PrintWriter writer = new PrintWriter(new FileWriter(billFile))) {
                 writer.println(roomPrice);
-                System.out.println("Customer-specific bill file generated/updated: " + customerBillFileName);
             } catch (IOException e) {
                 System.out.println("Error generating/updating customer-specific bill file.");
                 e.printStackTrace();
@@ -68,7 +62,16 @@ class BOOKFILE{
         }
     }
 
-    private static double readExistingPrice(File billFile) throws IOException {
+    static double readExistingPrice(File billFile) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(billFile))) {
+            String line = reader.readLine();
+            return Double.parseDouble(line.trim());
+        }
+    }
+    static double readExistingPrice(String name) throws IOException{
+        String customerBillFileName = BILL_FOLDER + name + "_bill.txt";
+
+        File billFile = new File(customerBillFileName);
         try (BufferedReader reader = new BufferedReader(new FileReader(billFile))) {
             String line = reader.readLine();
             return Double.parseDouble(line.trim());
@@ -81,7 +84,6 @@ class BOOKFILE{
             writer.println("Room Number: " + booking.getRoomNumber());
             writer.println("Check-in Date: " + booking.getCheckInDate());
             writer.println("Check-out Date: " + booking.getCheckOutDate());
-            // Add more details as needed
 
             System.out.println("Customer-specific booking file generated: " + customerBookingFileName);
         } catch (IOException e) {
@@ -154,6 +156,7 @@ class BOOKFILE{
 
     static void viewMyBookings(User customer) {
         List<BOOK> bookings = getCustomerBookings(customer.getId());
+        System.out.println(customer.getId());
 
         if (bookings.isEmpty()) {
             System.out.println("No bookings found for " + customer.getName());
@@ -219,14 +222,11 @@ class BOOKFILE{
                 BOOK selectedBooking = bookings.get(selectedBookingIndex);
                 int roomNumber = selectedBooking.getRoomNumber();
 
-                // Calculate charges, update records, or perform other checkout-related tasks
                 double charges = calculateCharges(selectedBooking);
                 System.out.println("Total charges: $" + charges);
 
-                // Update room availability status
                 updateRoomAvailability(roomNumber, true);
 
-                // Remove the booking from the bookings file
                 removeBooking(selectedBooking);
 
                 System.out.println("Check-out successful!");
@@ -237,9 +237,7 @@ class BOOKFILE{
     }
 
     private static double calculateCharges(BOOK booking) {
-        // Example: Calculate charges based on the room rate, duration, or other factors
-        // This is a placeholder, you should replace it with your actual charging logic
-        return 100.0; // Replace with the actual calculation
+        return 100.0;
     }
 
     private static void updateRoomAvailability(int roomNumber, boolean isAvailable) {

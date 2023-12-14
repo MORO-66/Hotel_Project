@@ -4,17 +4,16 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         int c = 0;
+        int id = 0;
         Menu.printWelcomeMessage();
         Scanner scanner = new Scanner(System.in);
         User user = null;
 
-
-        //ReservationManager.writeAndAddReservation();
         while (true) {
             Menu.Loginmenu();
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -22,6 +21,7 @@ public class Main {
                     break;
                 case 2:
                     UserData userData = Login.login();
+                    id = userData.getId();
                     user = new User(userData);
                     c = 1;
                     break;
@@ -31,18 +31,16 @@ public class Main {
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
+            user.setId(id);
             if (c == 1 && user.getRole().equals("admin")){
                 Menu.printAdminMenu();
             }
-            //System.out.println(user.getRole());
             if (c == 1 && user.getRole().equals("user")){
                 Menu.displayEmployeeeMenu();
             }
             if (c == 1 && user.getRole().equals("customer")){
                 Menu.displayCustomerMenu(user);
             }
-
-
         }
     }
 }

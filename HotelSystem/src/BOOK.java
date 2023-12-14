@@ -1,10 +1,3 @@
-import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
 
 
     class BOOK {
@@ -22,7 +15,7 @@ import java.util.Scanner;
 
     @Override
     public String toString() {
-        return roomNumber + "," + customerId + "," + checkInDate + "," + checkOutDate;
+        return roomNumber + "," + UserData.getId() + "," + checkInDate + "," + checkOutDate;
     }
         public int getRoomNumber() {
             return roomNumber;
@@ -56,8 +49,4 @@ import java.util.Scanner;
             this.checkOutDate = checkOutDate;
         }
 
-       // @Override
-//        public String toString() {
-//            return roomNumber + "," + customerId + "," + checkInDate + "," + checkOutDate;
-//        }
 }

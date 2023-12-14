@@ -144,23 +144,29 @@ public class Services {
 
     public void displayServices() {
         List<String> services = readServicesFromFile();
+    try {
 
-        if (!services.isEmpty()) {
-            System.out.println("\nAll Services:");
-            for (String service : services) {
-                String[] parts = service.split(",");
-                String name = parts[0].trim();
-                String description = parts[1].trim();
-                double price = Double.parseDouble(parts[2].trim());
 
-                System.out.println("Service Name: " + name);
-                System.out.println("Description: " + description);
-                System.out.println("Price: $" + price);
-                System.out.println("------------------------------");
-            }
-        } else {
-            System.out.println("No services found.");
+    if (!services.isEmpty()) {
+        System.out.println("\nAll Services:");
+        for (String service : services) {
+            String[] parts = service.split(",");
+            String name = parts[0].trim();
+            String description = parts[1].trim();
+            double price = Double.parseDouble(parts[2].trim());
+
+            System.out.println("Service Name: " + name);
+            System.out.println("Description: " + description);
+            System.out.println("Price: $" + price);
+            System.out.println("------------------------------");
         }
+        } else {
+        System.out.println("No services found.");
+        }
+}
+catch (Exception w){
+    System.out.println("finished");
+}
     }
 
     public List<String> readServicesFromFile() {
@@ -190,26 +196,20 @@ public class Services {
         }
     }
     public void requestService(User customer) {
-        // Display available services
         displayServices();
 
         Scanner scanner = new Scanner(System.in);
 
-        // Get the service name from the customer
         System.out.print("Enter the name of the service to request: ");
         String requestedServiceName = scanner.nextLine();
 
-        // Get the quantity or any additional information as needed
         System.out.print("Enter the quantity or additional information: ");
         String serviceDetails = scanner.nextLine();
 
-        // Check if the requested service exists
         double servicePrice = getServicePrice(requestedServiceName);
         if (servicePrice > 0) {
-            // Append the requested service to the file
             appendRequestedService(customer.getName(), requestedServiceName, serviceDetails, servicePrice);
 
-            // Update the customer's bill with the service price
             updateCustomerBill(customer.getName(), servicePrice);
 
             System.out.println("Service requested successfully!");
@@ -242,7 +242,7 @@ public class Services {
             }
         }
 
-        return 0.0; // Service not found or has no cost
+        return 0.0;
     }
 
     private void updateCustomerBill(String customerName, double servicePrice) {
@@ -252,15 +252,12 @@ public class Services {
 
         try {
             if (billFile.exists()) {
-                // If the file exists, read the existing total price and add the new service price
                 double existingTotal = readExistingTotal(billFile);
                 servicePrice += existingTotal;
             } else {
-                // If the file doesn't exist, create a new file
                 billFile.createNewFile();
             }
 
-            // Write the updated or new total to the file
             try (PrintWriter writer = new PrintWriter(new FileWriter(billFile))) {
                 writer.println(servicePrice);
             } catch (IOException e) {
@@ -278,6 +275,29 @@ public class Services {
         try (BufferedReader reader = new BufferedReader(new FileReader(billFile))) {
             String line = reader.readLine();
             return Double.parseDouble(line.trim());
+        }
+    }
+
+    public void viewRequestedServices() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(REQUESTED_SERVICES_FILE))) {
+            String line;
+            System.out.println("Requested Services:");
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                String customerName = parts[0].trim();
+                String serviceName = parts[1].trim();
+                String serviceDetails = parts[2].trim();
+                double servicePrice = Double.parseDouble(parts[3].trim());
+
+                System.out.println("Customer: " + customerName);
+                System.out.println("Service Name: " + serviceName);
+                System.out.println("Service Details: " + serviceDetails);
+                System.out.println("Service Price: $" + servicePrice);
+                System.out.println("------------------------------");
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading requested services data from file: " + REQUESTED_SERVICES_FILE);
+            e.printStackTrace();
         }
     }
 
